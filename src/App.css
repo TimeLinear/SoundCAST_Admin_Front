@@ -1,0 +1,60 @@
+.admin {
+    background-color: white;
+    height: 100vh;
+    display: flex;
+}
+
+.sidebar{
+    border-right: 1px solid #D4D4D4;
+    height: 100%;
+    width: 255px;
+    flex-shrink: 0;
+    /* width: 13.3%; */
+}
+
+.logobox{
+    position: relative;
+    height: 100px;
+    width: 100%;
+    display: flex;
+}
+.logobox img {
+    height: 100%;
+    width: 70%;
+    object-fit: contain;
+    margin: auto;
+}
+.logobox p {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    margin: 0;
+    font-size: small;
+    font-weight: 900;
+    color: #D9D9D9;
+}
+
+.menu {
+    margin-top: 80px;
+}
+.menu {
+    padding: 0px;
+}
+.menu li {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+}
+.menu button {
+    height: 50px;
+    width: 200px;
+    border-radius: 7px;
+    border: none;
+    background-color: white;
+}
+.menu button:hover{
+    color: #770ABF;
+}
+.menu .selected {
+    background-color: #D9D4EC;
+}
