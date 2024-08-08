@@ -9,7 +9,7 @@
 }
 
 .dashboard-title {
-    font-family: 'GangwonEduPowerExtraBoldA';
+    font-family: 'LeferiPoint-BlackA';
     font-size: 34px;
     padding: 0px;
     position: absolute;
@@ -17,26 +17,130 @@
     left: 220px;
 }
 
-.four-box > div{
-    /* border: 1px solid black; */
-    height: 350px;
+.four-box {
+    margin-top: 60px;
+    height: 750px;
     width: 1260px;
+}
+
+.first-second-box, .third-fourth-box {
+    /* border: 1px solid black; */
+    height: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
 .four-box > div > div {
-    border: 1px solid black;
-    height: 94%;
+    border: 1px solid #ECECEC;
+    height: 95%;
     width: 48.5%;
     border-radius: 20px;
-    border-color: #ECECEC;
     background-color: white;
     box-shadow: 0px 0px 100px -40px rgba(0, 0, 0, 0.25);
+    position: relative;
 }
 .third-fourth-box {
     align-items: end;
 }
 
-.four-box > div > div > div > p {
-    
+.top5-music, .new-music, .recent-report, .daily-download-statistics{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-title {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    font-size: 20px;
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 20px;
+    padding: 0px;
+}
+
+.content-unorderedlist {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    margin-top: 40px;
+    padding: 0px;
+    justify-content: space-evenly;
+    height: 260px;
+    /* border: 1px solid red; */
+}
+
+.content-list-with-rank{
+    height: 40px;
+    width: 550px;
+    /* border: 1px solid black; */
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content-unorderedlist p {
+    font-size: 12px;
+    font-weight: 900;
+}
+.title-artist-box > p{
+    margin: 0;
+    margin-left: 10px;
+}
+.artist {
+    color: #A4A4A4;
+}
+
+.rank {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 15px;
+}
+
+.content-list {
+    width: 95%;
+    flex-shrink: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    position: relative;
+    background-color: #F8FAFB;
+}
+
+.content-list-img {
+    height: 30px;
+    width: 30px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.genre-box, .mood-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    width: 100px;
+    border: 1px solid #D4D4D4;
+    border-radius: 5px;
+}
+.genre, .mood {
+    margin: 0;
+}
+
+.license-img {
+    margin: 0px;
+}
+
+.genre-mood-license-threebox {
+    /* border: 1px solid red; */
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    right: 20px;
+    align-items: center;
 }
