@@ -1,11 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import {  } from 'react-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Admin from './pages/Admin';
+import Login from './pages/Login';
 
 function App() {
+
+  const [admin, setAdmin] = useState({});
+
   return (
     <div className="App">
-      
+      {
+        !admin ? <Login/> : <Admin/> 
+      }
     </div>
   );
 }
