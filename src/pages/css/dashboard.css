@@ -1,4 +1,21 @@
+/* src/components/Dashboard.css */
 .dashboard {
+    padding: 20px;
+    overflow-y: auto;
     width: 100%;
-    background-color: red;
+    box-sizing: border-box;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }

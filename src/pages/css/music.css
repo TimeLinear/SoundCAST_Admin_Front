@@ -1,4 +1,18 @@
-.music {
-    width: 100%;
-    background-color: yellow;
+.music-page {
+  display: flex;
+}
+
+.content {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.music-upload {
+  margin-bottom: 20px;
+}
+
+.music-list {
+  flex: 1;
 }

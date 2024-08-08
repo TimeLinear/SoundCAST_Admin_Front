@@ -1,3 +1,92 @@
-.login {
-    
+.login-background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(/public/images/soundcast-loge.png);
+    background-size: 1440px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1C003B;
+    color: white;
+    font-family: Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container {
+    background-color: white;
+    color: #1d1d41;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px;
+    height: 600px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 30px;
+
+}
+
+.label {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-style: normal;
+    font-family: 'TheJamsil5Bold';
+}
+
+.input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.button {
+    padding: 10px;
+    background-color: #1C003B;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'TheJamsil5Bold';
+    height: 100px;
+}
+
+.button:hover {
+    background-color: #3d3d9a;
+}
+
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+.soundcast-font{
+    margin-bottom: 50px;
+}
+
+.soundcast-logo{
+    width: 181px;
+    height: 126px;
+    margin-left: 22.5%;
+    margin-bottom: -15%;
+}
+
+.soundcast-font2{
+       margin-left: 20%;
 }

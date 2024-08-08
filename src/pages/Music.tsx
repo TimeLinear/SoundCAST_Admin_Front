@@ -1,8 +1,15 @@
-import './css/music.css';
+import React from 'react';
+import MusicManagement from '../components/MusicManagement';
+import '../pages/css/Music.css';
 
-export default function Music(){
-    return (
-        <div className='music'>
-        </div>
-    )
+const MusicPage: React.FC = () => {
+  return (
+    <div className="music-page">
+      <div className="content">
+        <MusicManagement/>
+      </div>
+    </div>
+  );
 }
+
+export default MusicPage;
