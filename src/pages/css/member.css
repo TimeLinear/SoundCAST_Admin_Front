@@ -1,4 +1,139 @@
-.member {
+.member-page {
     width: 100%;
-    background-color: orange;
+    /* background-color: orange; */
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: #F8FAFB;
+}
+
+.member-title {
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 34px;
+    padding: 0px;
+    position: absolute;
+    top: 20px;
+    left: 220px;
+}
+
+.member-content-box {
+    margin-top: 130px;
+    height: 700px;
+    width: 1260px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 100px -40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.member-content {
+    height: 80%;
+    width: 80%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position:relative;
+}
+
+.member-bar-box {
+    /* border: 1px solid black; */
+    height: 9%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.member-list-box {
+    border: 1px solid black;
+    height: 60%;
+    width: 100%;
+}
+.member-paging-and-button {
+    border: 1px solid red;
+    height: 15%;
+    width: 100%;
+}
+
+.member-custom-selectbox { /* 셀렉트 박스 */
+    border: 1px solid #D4D4D4;
+    height: 100%;
+    width: 150px;
+    border-radius: 7px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.member-custom-selectbox-dropdown {
+    position:absolute;
+    border: 1px solid #D4D4D4;
+    height: 150px;
+    width: 150px;
+    top: 52px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-no-button, .member-nickname-button, .member-email-button {
+    background-color: whitesmoke;
+    border-radius: 7px;
+    border: none;
+    height: 30%;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.member-no, .member-nickname, .member-email{
+    margin: 0;
+    position: absolute ;
+    left: 15px;
+}
+
+.member-selectbox-name {
+    margin-left: 10px;
+}
+.member-selectbox-icon {
+    position: absolute;
+    right: 20px;
+}
+
+.member-input {
+    height: 100%;
+    width: 75%;
+    border: 1px solid #D4D4D4;
+    border-radius: 7px;
+    background-color: #F8FAFB;
+    box-sizing: border-box;
+}
+
+.member-search-button { /* 검색버튼 */
+    height: 100%;
+    width: 8%;
+    padding: 0;
+    border: none;
+    border-radius: 7px;
+    background-color: #770abfc5;
+}
+.member-search-button:hover {
+    background-color: #770ABF;
+    cursor: pointer;
+    /* 손가락모양 구현 */
+}
+
+.member-search-button-name {
+    color: white;
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 13px;
+    font-weight: 100;
+    margin: 0;
+    margin-top: 4px;
 }

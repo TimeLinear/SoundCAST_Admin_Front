@@ -27,7 +27,7 @@ export default function Sidebar(){
         { key: "member", label: "회원", iconPath: "/images/icon_member_gray.png", hoverIconPath: "/images/icon_member_purple.png"},
         { key: "music", label: "음원", iconPath: "/images/icon_music_gray.png", hoverIconPath: "/images/icon_music_purple.png"},
         { key: "report", label: "신고", iconPath: "/images/icon_report_gray.png", hoverIconPath: "/images/icon_report_purple.png"},
-        { key: "statistics", label: "통계", iconPath: "/images/icon_statistics_gray.png", hoverIconPath: "/images/icon_statistics_purple.png"},
+        { key: "statistics", label: "통계", iconPath: "/images/icon_statistics_gray.png", hoverIconPath: "/images/icon_statistics_purple.png"}
       ];
     
       return (

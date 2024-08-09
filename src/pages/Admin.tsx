@@ -8,7 +8,7 @@ import Report from "./Report";
 
 export default function Admin(){
     return (
-        <div className='admin'>
+        <div className='admin-page'>
 
             <Sidebar/>
 
