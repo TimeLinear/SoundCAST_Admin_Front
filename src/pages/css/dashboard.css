@@ -1,4 +1,4 @@
-.dashboard {
+.dashboard-page {
     width: 100%;
     /* background-color: red; */
     display: flex;
@@ -31,7 +31,7 @@
     justify-content: space-between;
 }
 .four-box > div > div {
-    border: 1px solid #ECECEC;
+    /* border: 1px solid #ECECEC; */
     height: 95%;
     width: 48.5%;
     border-radius: 20px;
@@ -53,27 +53,35 @@
     position: absolute;
     top: 10px;
     left: 40px;
-    font-size: 20px;
     font-family: 'LeferiPoint-BlackA';
     font-size: 20px;
     padding: 0px;
 }
 
+.content-box{
+    /* border: 1px solid red; */
+    height: 260px;
+    width: 550px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .content-unorderedlist {
+    width: 100%;
     flex-direction: column;
     display: flex;
     justify-content: center;
     margin: 0px;
-    margin-top: 40px;
     padding: 0px;
     justify-content: space-evenly;
-    height: 260px;
+    height: 100%;
     /* border: 1px solid red; */
 }
 
 .content-list-with-rank{
     height: 40px;
-    width: 550px;
+    width: 100%;
     /* border: 1px solid black; */
     list-style-type: none;
     display: flex;
@@ -88,6 +96,10 @@
 .title-artist-box > p{
     margin: 0;
     margin-left: 10px;
+    white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */
+    overflow: hidden; /* 넘친 부분을 숨김 */
+    text-overflow: ellipsis;
+    max-width: 180px; /* 최대 너비 설정 */
 }
 .artist {
     color: #A4A4A4;
@@ -116,6 +128,8 @@
     width: 30px;
     margin-left: 20px;
     border-radius: 5px;
+    border: 2px solid #D4D4D4;
+    object-fit : cover;
 }
 
 .genre-box, .mood-box{
@@ -126,6 +140,7 @@
     width: 100px;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
+    background-color: whitesmoke;
 }
 .genre, .mood {
     margin: 0;
@@ -137,10 +152,51 @@
 
 .genre-mood-license-threebox {
     /* border: 1px solid red; */
+    height: 100%;
     width: 250px;
     display: flex;
     justify-content: space-between;
     position: absolute;
     right: 20px;
     align-items: center;
+}
+
+/* 신고사유 */
+.report-box {
+    height: 75%;
+    width: 300px;
+    border: 1px solid black;
+    position: absolute;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    /* border: 1px solid #D4D4D4; */
+    border-radius: 5px;
+    border: none;
+    /* background-color: white; */
+}
+.report-box.etc {
+    justify-content: center;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+.report-text {
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.report-text.sub {
+    color: #A4A4A4; /* 나머지 문자열을 회색으로 */
+    font-size: 9px;
+    white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */
+    overflow: hidden; /* 넘친 부분을 숨김 */
+    text-overflow: ellipsis;
+    max-width: 280px; /* 최대 너비 설정 */
+}
+
+.dashboard-statistics {
+    height: 90%;
+    width: 90%;
+    border: 1px dashed black; /* 통계 그래프 불러올 시 지울 속성*/
 }
