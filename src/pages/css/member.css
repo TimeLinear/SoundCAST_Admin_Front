@@ -30,7 +30,7 @@
 .member-content {
     height: 80%;
     width: 80%;
-    border: 1px solid black;
+    /* border: 1px solid black; */ /* 흰 박스에 총 컨텐츠가 들어갈 영역 표시 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -45,8 +45,8 @@
     justify-content: space-between;
 }
 .member-list-box {
-    border: 1px solid black;
-    height: 60%;
+    /* border: 1px solid black; */ /*회원 목록 박스 구간 표시*/
+    height: 385px;
     width: 100%;
 }
 .member-paging-and-button {
@@ -66,6 +66,13 @@
     box-sizing: border-box;
     cursor: pointer;
 }
+.member-custom-selectbox:hover {
+    border : 2px solid #D9D4EC;
+}
+.member-custom-selectbox.selected3{
+    border : 2px solid #770ABF;
+}
+
 .member-custom-selectbox-dropdown {
     position:absolute;
     border: 1px solid #D4D4D4;
@@ -78,10 +85,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
+
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.member-custom-selectbox-dropdown.show {
+    opacity: 1;
 }
 
 .member-no-button, .member-nickname-button, .member-email-button {
-    background-color: whitesmoke;
     border-radius: 7px;
     border: none;
     height: 30%;
@@ -90,20 +104,36 @@
     text-align: center;
     display: flex;
     align-items: center;
+    background-color: white;
+    cursor: pointer;
+}
+.member-no-button:hover, .member-nickname-button:hover, .member-email-button:hover {
+    background-color: whitesmoke;
+}
+
+.member-custom-selectbox-dropdown .selected2 {
+    background-color: lightgray;
 }
 
 .member-no, .member-nickname, .member-email{
     margin: 0;
     position: absolute ;
     left: 15px;
+    font-size: 14px;
+    font-weight: 900;
 }
 
 .member-selectbox-name {
-    margin-left: 10px;
+    margin-left: 14px;
+    font-size: 14px;
+    font-weight: 900;
 }
 .member-selectbox-icon {
     position: absolute;
     right: 20px;
+    font-size: 8px;
+    font-weight: 900;
+    transform: scaleX(1.6); /* 가로로 1.2배 확장 */
 }
 
 .member-input {
@@ -119,11 +149,14 @@
     height: 100%;
     width: 8%;
     padding: 0;
+    box-sizing: border-box;
     border: none;
     border-radius: 7px;
     background-color: #770abfc5;
 }
 .member-search-button:hover {
+    
+    border: 1px solid #8936c0;
     background-color: #770ABF;
     cursor: pointer;
     /* 손가락모양 구현 */
@@ -133,7 +166,73 @@
     color: white;
     font-family: 'LeferiPoint-BlackA';
     font-size: 13px;
-    font-weight: 100;
     margin: 0;
     margin-top: 4px;
+}
+
+/* 검색창 */
+.member-input {
+    background-color: #F8FAFB;
+    padding: 0px 14px;
+} 
+.member-input:hover {
+    border: 2px solid #D9D4EC;
+}
+.member-input:focus {
+    background-color: white;
+    border: 2px solid #770ABF;
+    outline: none;
+}
+.member-input::placeholder {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 회원 목록 */
+.member-list-form {
+    background-color: #F8FAFB;
+}
+
+input[type="checkbox"] {
+    accent-color: #770ABF; /* 체크된 상태의 색상 */
+}
+
+.member-list-common-css {
+    /* border: 1px solid blue; */
+    height: 35px;
+    width: 100%;
+    display: flex;
+}
+.member-list-common-css > div{
+    border-bottom: 1px solid #D4D4D4;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-list-form-1 {
+    width: 10%
+}
+.member-list-form-2 {
+    width: 10%
+}
+.member-list-form-3 {
+    width: 15%
+}
+.member-list-form-4 {
+    width: 30%
+}
+.member-list-form-5 {
+    width: 35%
+}
+
+.member-unordered-list {
+    margin: 0px;
+    padding: 0px;
+}
+.member-unordered-list img{
+    height: 25px;
+    width: 25px;
+    object-fit : cover;
 }

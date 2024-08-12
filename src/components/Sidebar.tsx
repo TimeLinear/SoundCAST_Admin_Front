@@ -6,7 +6,7 @@ export default function Sidebar(){
     const navi = useNavigate();
 
     const [sideMenuState, setSideMenuState] = useState('dashboard');
-    const [hoveredItem, setHoveredItem] = useState<string | null>(null); // 호버 상태 관리'
+    const [hoveredItem, setHoveredItem] = useState<string | null>(null); // 호버 상태 관리
 
     const menuSelect = (e:MouseEvent) => {
         const {value} = e.currentTarget as HTMLButtonElement;
