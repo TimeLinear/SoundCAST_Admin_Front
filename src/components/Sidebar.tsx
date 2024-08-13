@@ -1,11 +1,14 @@
-import { MouseEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { MouseEvent, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Sidebar(){
 
     const navi = useNavigate();
+    const location = useLocation(); // 현재 경로를 가져오기 위한 훅
 
-    const [sideMenuState, setSideMenuState] = useState('dashboard');
+    const currentPath = location.pathname.split('/')[1];
+
+    const [sideMenuState, setSideMenuState] = useState(currentPath === '' ? 'dashboard' : currentPath);
     const [hoveredItem, setHoveredItem] = useState<string | null>(null); // 호버 상태 관리
 
     const menuSelect = (e:MouseEvent) => {
@@ -34,7 +37,7 @@ export default function Sidebar(){
         <div className="sidebar">
           <div className="logobox">
             <p>ADMIN</p>
-            <img src="/images/soundcasttextlogo.png" alt="" />
+            <div className="logo-backgound-img"/>
           </div>
     
           <ul className="menu">

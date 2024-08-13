@@ -50,7 +50,7 @@
     width: 100%;
 }
 .member-paging-and-button {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 15%;
     width: 100%;
 }
@@ -108,6 +108,9 @@
     cursor: pointer;
 }
 .member-no-button:hover, .member-nickname-button:hover, .member-email-button:hover {
+    background-color: whitesmoke;
+}
+.member-no-button.selected2:hover, .member-nickname-button.selected2:hover, .member-email-button.selected2:hover {
     background-color: whitesmoke;
 }
 
@@ -194,7 +197,7 @@
 }
 
 input[type="checkbox"] {
-    accent-color: #770ABF; /* 체크된 상태의 색상 */
+    accent-color: #C9120A; /* 체크된 상태의 색상 */
 }
 
 .member-list-common-css {
@@ -235,4 +238,37 @@ input[type="checkbox"] {
     height: 25px;
     width: 25px;
     object-fit : cover;
+}
+
+/* 회원 삭제 버튼 */
+
+.member-paging-and-button {
+    position: relative;
+}
+
+.member-delete-button {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100px;
+    background-color: #C9120A;
+    padding: 0;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.member-delete-button:hover {
+    border: 1px solid #C9120A;
+    background-color: #a31009;
+}
+
+.member-delete-p {
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 13px;
+    margin: 0;
+    margin-top: 4px;
+    color: white;
 }

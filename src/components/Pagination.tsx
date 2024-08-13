@@ -67,7 +67,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => {
           handlePageClick(currentPage - 1);
-          currentPage <= ((currentPageGroup - 1) * pagesPerGroup + 1) && handlePrevGroupClick();
+          currentPage == ((currentPageGroup - 1) * pagesPerGroup + 1) && handlePrevGroupClick();
         }}
         disabled={currentPage === 1}
       >
@@ -76,10 +76,14 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       {renderPageNumbers()} {/*숫자버튼들*/}
       <button
         onClick={() => {
-          handlePageClick(currentPage + 1);
-          (currentPage >= (pagesPerGroup * currentPageGroup)) && handleNextGroupClick();
+          console.log(currentPage);
+          handlePageClick(currentPage + 1); // setCurrentpage(currentPage + 1);
+          console.log(currentPage, pagesPerGroup * currentPageGroup);
+          (currentPage == (pagesPerGroup * currentPageGroup)) && handleNextGroupClick();
+          console.log(currentPage, pagesPerGroup * currentPageGroup);
         }}
         disabled={currentPage === totalPages}
+        /* 그룹은 handleNextGroupClick()에서 막아놨으나 이 기능이 켜져있지 않으면 계속 다음페이지로 넘어감 */
       >
         <p className='member-page-prev-next'>&gt;</p> 
       </button>

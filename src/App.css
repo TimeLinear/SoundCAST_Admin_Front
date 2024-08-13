@@ -1,9 +1,11 @@
+/* 관리자 페이지 */
 .admin-page {
     background-color: white;
     height: 100vh;
     display: flex;
 }
 
+/* 페이지에 공통으로 들어 갈 사이드바 */
 .sidebar{
     border-right: 1px solid #D4D4D4;
     height: 100%;
@@ -18,11 +20,14 @@
     width: 100%;
     display: flex;
 }
-.logobox img {
+.logo-backgound-img {
     height: 100%;
     width: 70%;
-    object-fit: contain;
     margin: auto;
+    background-image: url('/public/images/soundcasttextlogo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .logobox p {
     position: absolute;
@@ -131,13 +136,13 @@
 }
   
 .pagination button:hover {
-    background-color: #EBF3FF;
+    background-color: #f7ebff;
 }
   
 .pagination button.active {
-    background-color: #519CFF;
+    background-color: #bf51ff;
     color: white;
-    border-color: #519CFF;
+    border-color: #bf51ff;
 }
   
 .pagination button:disabled {

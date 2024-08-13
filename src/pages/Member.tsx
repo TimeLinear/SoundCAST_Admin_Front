@@ -1,4 +1,4 @@
-import { MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
 import './css/member.css';
 import Pagination from '../components/Pagination';
 
@@ -8,6 +8,13 @@ export default function Member(){
     const [animateDropdown, setAnimateDropdown] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null); // 드롭다운 버튼에 대한 참조 추가
+    
+    const [searchKeyword, setSearchKeyword] = useState("");
+
+    const handleSearchKeyword = (e:ChangeEvent<HTMLInputElement>) => {
+        setSearchKeyword(e.target.value);
+        console.log(searchKeyword);
+    }
 
     // const dropChange = () => {
     //     setDropShow(!dropShow);
@@ -142,7 +149,8 @@ export default function Member(){
                             <p className='member-selectbox-icon'>{dropShow ? '▲' : '▼'}</p>
                         </div>
 
-                        <input className='member-input' placeholder='검색어 입력'></input>
+                        <input className='member-input' placeholder='검색어 입력'
+                            onChange={handleSearchKeyword}></input>
 
                         <button className='member-search-button'>
                             <p className='member-search-button-name'>검색</p>
@@ -185,6 +193,9 @@ export default function Member(){
                             totalPages={totalPages}
                             onPageChange={handlePageChange}
                         />
+                        <button className='member-delete-button'>
+                            <p className='member-delete-p'>회원삭제</p>
+                        </button>
                     </div>
                 </div>
             </div>
