@@ -167,11 +167,11 @@ export default function Member(){
                         </div>
                         <ul className='member-unordered-list'>
                             {currentItems.map((item:{
-    no: string;
-    profileImg: string;
-    artist: string;
-    email: string;
-}) => (
+                                no: string;
+                                profileImg: string;
+                                artist: string;
+                                email: string;
+                            }) => (
                                 <li className={`member-list-${item.no} member-list-common-css`}>
                                     <div className='member-list-form-1'>
                                         <input type="checkbox" />
