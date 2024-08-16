@@ -3,21 +3,21 @@
     /* background-color: blue; */
     display: flex;
     justify-content: center;
-    position: relative;
     background-color: #F8FAFB;
+    min-width: 1350px;
+    overflow-y: auto;
 }
 
 .statistics-title {
     font-family: 'LeferiPoint-BlackA';
     font-size: 34px;
     padding: 0px;
-    position: absolute;
-    top: 20px;
-    left: 220px;
+    margin: 0px;
+    margin-top: 54px;
 }
 
 .statistics-content-box {
-    margin-top: 200px;
+    margin-top: 20px;
     height: 630px;
     width: 1260px;
     border-radius: 20px;
@@ -39,9 +39,7 @@
 }
 
 .statistics-buttons {
-    position: absolute;
-    left: 220px;
-    top: 130px;
+    margin-top: 28px;
 }
 
 .statistics-button-common-css {

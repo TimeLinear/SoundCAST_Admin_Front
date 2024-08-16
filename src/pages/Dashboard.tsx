@@ -27,10 +27,10 @@ export default function Dashboard(){
 
     return (
         <div className='dashboard-page'>
-            <p className='dashboard-title'>대시보드</p>
+            
+            <div className='dashboard-title-and-fourbox'>
 
-                <div className='dashboard-title-div'>
-                </div>
+                <p className='dashboard-title'>대시보드</p>
 
                 <div className='four-box'>
                     <div className='first-second-box'>
@@ -189,6 +189,9 @@ export default function Dashboard(){
                         </div>
                     </div>
                 </div>
+                
+            </div>
+                
         </div>
     )
 }

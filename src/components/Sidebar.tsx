@@ -44,7 +44,7 @@ export default function Sidebar(){
             {menuItems.map((item) => (
               <li key={item.key}>
                 <button
-                  className={`menu-button ${item.key}-menu-button ${
+                  className={`${item.key}-menu-button ${
                     sideMenuState === item.key ? "selected" : ""
                   }`}
                   value={item.key}

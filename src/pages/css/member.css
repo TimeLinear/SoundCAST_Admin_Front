@@ -3,21 +3,21 @@
     /* background-color: orange; */
     display: flex;
     justify-content: center;
-    position: relative;
     background-color: #F8FAFB;
+    min-width: 1350px;
+    overflow-y: auto;
 }
 
 .member-title {
     font-family: 'LeferiPoint-BlackA';
     font-size: 34px;
     padding: 0px;
-    position: absolute;
-    top: 20px;
-    left: 220px;
+    margin: 0px;
+    margin-top: 54px;
 }
 
 .member-content-box {
-    margin-top: 130px;
+    margin-top: 28px;
     height: 700px;
     width: 1260px;
     border-radius: 20px;
@@ -195,6 +195,10 @@
 .member-list-form {
     background-color: #F8FAFB;
 }
+.member-list-form > div{
+    color: #868E96;
+    font-weight: 900;
+}
 
 input[type="checkbox"] {
     accent-color: #C9120A; /* 체크된 상태의 색상 */
@@ -223,6 +227,11 @@ input[type="checkbox"] {
 .member-list-form-3 {
     width: 15%
 }
+.member-list-form-3 > img {
+    border: 2px solid #D4D4D4;
+    border-radius: 5px;
+}
+
 .member-list-form-4 {
     width: 30%
 }

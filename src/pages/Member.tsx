@@ -1,8 +1,22 @@
 import { ChangeEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
 import './css/member.css';
 import Pagination from '../components/Pagination';
+import axios from 'axios';
+import { Membertype } from '../type/member';
 
 export default function Member(){
+
+    const [memberListItems, setMemberListItems] = useState<Membertype[]>([]);
+
+    useEffect(()=>{
+        axios.get("http://localhost:8089/soundcastadmin/member/selectMembers")
+        .then((response) => {
+            setMemberListItems(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    },[])
 
     const [dropShow ,setDropShow] = useState(false);
     const [animateDropdown, setAnimateDropdown] = useState(false);
@@ -65,24 +79,24 @@ export default function Member(){
         { key : "email", name : "이메일"}
     ]
 
-    const memberListItems:any = [
-        {no: "1", profileImg: "/images/mimikyu.png", artist: "Sopp", email: "soppworld@naver.com"},
-        {no: "2", profileImg: "/images/mimikyu.png", artist: "react" , email: "fffjjj@naver.com"},
-        {no: "3", profileImg: "/images/mimikyu.png", artist: "Du" , email: "ido@gmail.com"},
-        {no: "4", profileImg: "/images/mimikyu.png", artist: "Soo" , email: "udong@gmail.com"},
-        {no: "5", profileImg: "/images/mimikyu.png", artist: "jsp" , email: "jsplove@gmail.com"},
-        {no: "6", profileImg: "/images/mimikyu.png", artist: "foreach" , email: "fore@gmail.com"},
-        {no: "7", profileImg: "/images/mimikyu.png", artist: "Chan" , email: "gyung@gmail.com"},
-        {no: "8", profileImg: "/images/mimikyu.png", artist: "mkm" , email: "mkm@gmail.com"},
-        {no: "9", profileImg: "/images/mimikyu.png", artist: "Jin" , email: "jinzza@gmail.com"},
-        {no: "10", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"},
-        {no: "11", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"}
-    ]
+    // const memberListItems:any = [
+    //     {no: "1", profileImg: "/images/mimikyu.png", artist: "Sopp", email: "soppworld@naver.com"},
+    //     {no: "2", profileImg: "/images/mimikyu.png", artist: "react" , email: "fffjjj@naver.com"},
+    //     {no: "3", profileImg: "/images/mimikyu.png", artist: "Du" , email: "ido@gmail.com"},
+    //     {no: "4", profileImg: "/images/mimikyu.png", artist: "Soo" , email: "udong@gmail.com"},
+    //     {no: "5", profileImg: "/images/mimikyu.png", artist: "jsp" , email: "jsplove@gmail.com"},
+    //     {no: "6", profileImg: "/images/mimikyu.png", artist: "foreach" , email: "fore@gmail.com"},
+    //     {no: "7", profileImg: "/images/mimikyu.png", artist: "Chan" , email: "gyung@gmail.com"},
+    //     {no: "8", profileImg: "/images/mimikyu.png", artist: "mkm" , email: "mkm@gmail.com"},
+    //     {no: "9", profileImg: "/images/mimikyu.png", artist: "Jin" , email: "jinzza@gmail.com"},
+    //     {no: "10", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"},
+    //     {no: "11", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"}
+    // ]
 
-    memberListItems.push(...memberListItems);
-    memberListItems.push(...memberListItems);
-    memberListItems.push(...memberListItems);
-    memberListItems.push(...memberListItems);
+    // memberListItems.push(...memberListItems);
+    // memberListItems.push(...memberListItems);
+    // memberListItems.push(...memberListItems);
+    // memberListItems.push(...memberListItems);
 
     /* 페이지네이션 시작 */
 
@@ -107,95 +121,97 @@ export default function Member(){
     // 현재 페이지에서 표시해야할 리스트 아이템들 [{no: "11", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"}]
 
     /* 페이지네이션 끝 */
-    
+
     return (
         <div className='member-page'>
-            <p className='member-title'>회원</p>
-            <div className='member-content-box'>
-                <div className='member-content'>
+            <div className='member-title-and-contentbox'>
+                <p className='member-title'>회원</p>
+                <div className='member-content-box'>
+                    <div className='member-content'>
 
-                    { /* 누를 시 나오는 커스텀 드롭다운 */
-                        (dropShow &&
-                        
-                            <div className={`member-custom-selectbox-dropdown ${animateDropdown ? 'show' : ''}`}
-                            ref={dropdownRef}>
+                        { /* 누를 시 나오는 커스텀 드롭다운 */
+                            (dropShow &&
+                            
+                                <div className={`member-custom-selectbox-dropdown ${animateDropdown ? 'show' : ''}`}
+                                ref={dropdownRef}>
 
-                            {selectBoxItems.map((item) => (
+                                {selectBoxItems.map((item) => (
 
-                                <button
-                                 className={`member-${item.key}-button ${
-                                   selectBoxState === item.name ? "selected2" : ""
-                                 }`}
-                                 value={item.name}
-                                 onClick={selectBoxSelect}
-                                 >                           
-                                    <p className={`member-${item.key}`}>{item.name}</p>
-                                </button>
+                                    <button
+                                    className={`member-${item.key}-button ${
+                                    selectBoxState === item.name ? "selected2" : ""
+                                    }`}
+                                    value={item.name}
+                                    onClick={selectBoxSelect}
+                                    >                           
+                                        <p className={`member-${item.key}`}>{item.name}</p>
+                                    </button>
 
-                            ))}
-            
-                        </div>)
-                        
-                    }
+                                ))}
+                
+                            </div>)
+                            
+                        }
 
-                    <div className='member-bar-box'>
+                        <div className='member-bar-box'>
 
-                        <div
-                            className={`member-custom-selectbox ${dropShow ? 'selected3' : ''}`}
-                            onClick={dropChange}
-                            ref={buttonRef} // 버튼 참조 추가
-                        >
-                            <p className='member-selectbox-name'>{selectBoxState}</p>
-                            <p className='member-selectbox-icon'>{dropShow ? '▲' : '▼'}</p>
+                            <div
+                                className={`member-custom-selectbox ${dropShow ? 'selected3' : ''}`}
+                                onClick={dropChange}
+                                ref={buttonRef} // 버튼 참조 추가
+                            >
+                                <p className='member-selectbox-name'>{selectBoxState}</p>
+                                <p className='member-selectbox-icon'>{dropShow ? '▲' : '▼'}</p>
+                            </div>
+
+                            <input className='member-input' placeholder='검색어 입력'
+                                onChange={handleSearchKeyword}></input>
+
+                            <button className='member-search-button'>
+                                <p className='member-search-button-name'>검색</p>
+                            </button>
                         </div>
 
-                        <input className='member-input' placeholder='검색어 입력'
-                            onChange={handleSearchKeyword}></input>
+                        <div className='member-list-box'>
+                            <div className='member-list-form member-list-common-css'>
+                                <div className='member-list-form-1'>선택</div>
+                                <div className='member-list-form-2'>No</div>
+                                <div className='member-list-form-3'>회원 사진</div>
+                                <div className='member-list-form-4'>닉네임</div>
+                                <div className='member-list-form-5'>이메일</div>
+                            </div>
+                            <ul className='member-unordered-list'>
+                                {currentItems.map((item/*:{
+                                    no: string;
+                                    profileImg: string;
+                                    artist: string;
+                                    email: string;
+                                }*/) => (
+                                    <li className={`member-list-${item.memberNo} member-list-common-css`}>
+                                        <div className='member-list-form-1'>
+                                            <input type="checkbox" />
+                                        </div>
+                                        <div className='member-list-form-2'>{item.memberNo}</div>
+                                        <div className='member-list-form-3'>
+                                            <img src={item.profileImage.profileImagePath} /></div>
+                                        <div className='member-list-form-4'>{item.memberNickname}</div>
+                                        <div className='member-list-form-5'>{item.memberEmail}</div>
+                                    </li>
+                                ))}
 
-                        <button className='member-search-button'>
-                            <p className='member-search-button-name'>검색</p>
-                        </button>
-                    </div>
-
-                    <div className='member-list-box'>
-                        <div className='member-list-form member-list-common-css'>
-                            <div className='member-list-form-1'>선택</div>
-                            <div className='member-list-form-2'>No</div>
-                            <div className='member-list-form-3'>회원 사진</div>
-                            <div className='member-list-form-4'>닉네임</div>
-                            <div className='member-list-form-5'>이메일</div>
+                            </ul>
                         </div>
-                        <ul className='member-unordered-list'>
-                            {currentItems.map((item:{
-                                no: string;
-                                profileImg: string;
-                                artist: string;
-                                email: string;
-                            }) => (
-                                <li className={`member-list-${item.no} member-list-common-css`}>
-                                    <div className='member-list-form-1'>
-                                        <input type="checkbox" />
-                                    </div>
-                                    <div className='member-list-form-2'>{item.no}</div>
-                                    <div className='member-list-form-3'>
-                                        <img src={item.profileImg} alt="" /></div>
-                                    <div className='member-list-form-4'>{item.artist}</div>
-                                    <div className='member-list-form-5'>{item.email}</div>
-                                </li>
-                            ))}
 
-                        </ul>
-                    </div>
-
-                    <div className='member-paging-and-button'>
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={handlePageChange}
-                        />
-                        <button className='member-delete-button'>
-                            <p className='member-delete-p'>회원삭제</p>
-                        </button>
+                        <div className='member-paging-and-button'>
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                            />
+                            <button className='member-delete-button'>
+                                <p className='member-delete-p'>회원삭제</p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
