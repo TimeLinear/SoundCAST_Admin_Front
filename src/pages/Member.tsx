@@ -2,11 +2,12 @@ import { ChangeEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState
 import './css/member.css';
 import Pagination from '../components/Pagination';
 import axios from 'axios';
-import { Membertype } from '../type/member';
+import { MemberType, SearchKeyword } from '../type/member';
+import useInput from '../hook/useInput';
 
 export default function Member(){
 
-    const [memberListItems, setMemberListItems] = useState<Membertype[]>([]);
+    const [memberListItems, setMemberListItems] = useState<MemberType[]>([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8089/soundcastadmin/member/selectMembers")
@@ -16,7 +17,28 @@ export default function Member(){
         .catch((error) => {
             console.log(error);
         })
+        return() => {
+            //컴포넌트가 소멸될때 실행할 코드
+            setMemberListItems([]);
+        }
     },[])
+
+    // const [searchKeyword, onChangeKeyword] = useInput<SearchKeyword>({
+    //     type: '닉네임',
+    //     searchTerm: ''
+    // });
+
+    const searchMenus = () => {
+        const searchTerm = searchKeyword || "defaultSearchTerm"; // 빈 문자열 대신 기본값 설정
+        const url = `http://localhost:8089/soundcastadmin/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
+
+        axios.
+            get(url).
+            then( response => {
+                console.log(response.data);
+                setMemberListItems(response.data);
+            });
+    }
 
     const [dropShow ,setDropShow] = useState(false);
     const [animateDropdown, setAnimateDropdown] = useState(false);
@@ -135,22 +157,21 @@ export default function Member(){
                                 <div className={`member-custom-selectbox-dropdown ${animateDropdown ? 'show' : ''}`}
                                 ref={dropdownRef}>
 
-                                {selectBoxItems.map((item) => (
+                                    {selectBoxItems.map((item) => (
 
-                                    <button
-                                    className={`member-${item.key}-button ${
-                                    selectBoxState === item.name ? "selected2" : ""
-                                    }`}
-                                    value={item.name}
-                                    onClick={selectBoxSelect}
-                                    >                           
-                                        <p className={`member-${item.key}`}>{item.name}</p>
-                                    </button>
+                                        <button
+                                        className={`member-${item.key}-button ${
+                                        selectBoxState === item.name ? "selected2" : ""
+                                        }`}
+                                        name='type' value={item.name}
+                                        onClick={selectBoxSelect}
+                                        >                           
+                                            <p className={`member-${item.key}`}>{item.name}</p>
+                                        </button>
 
-                                ))}
-                
-                            </div>)
-                            
+                                    ))}
+                                </div>
+                            )
                         }
 
                         <div className='member-bar-box'>
@@ -165,9 +186,11 @@ export default function Member(){
                             </div>
 
                             <input className='member-input' placeholder='검색어 입력'
+                                name='searchTerm'
                                 onChange={handleSearchKeyword}></input>
 
-                            <button className='member-search-button'>
+                            <button className='member-search-button'
+                             onClick={() => searchMenus()}>
                                 <p className='member-search-button-name'>검색</p>
                             </button>
                         </div>
@@ -181,13 +204,9 @@ export default function Member(){
                                 <div className='member-list-form-5'>이메일</div>
                             </div>
                             <ul className='member-unordered-list'>
-                                {currentItems.map((item/*:{
-                                    no: string;
-                                    profileImg: string;
-                                    artist: string;
-                                    email: string;
-                                }*/) => (
-                                    <li className={`member-list-${item.memberNo} member-list-common-css`}>
+                                {currentItems.map((item) => (
+                                    <li key={item.memberNo} /* 고유한 key prop 추가 */
+                                        className={`member-list-${item.memberNo} member-list-common-css`}>
                                         <div className='member-list-form-1'>
                                             <input type="checkbox" />
                                         </div>
