@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import Pagination from "react-js-pagination";
-import '../pages/css/Music.css';
+import '../pages/css/music.css';
 import MusicUploadModal from './MusicUploadModal';
 
 const MusicPage: React.FC = () => {

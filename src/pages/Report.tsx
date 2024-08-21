@@ -1,6 +1,6 @@
 import Pagination from "react-js-pagination";
 import ReportModal from '../pages/ReportModal';
-import './css/Report.css';
+import './css/report.css';
 import { useState } from "react";
 
 const ReportPage: React.FC = () => {

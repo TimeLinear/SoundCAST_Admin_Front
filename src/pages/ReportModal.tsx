@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import '../pages/css/Report.css';
+import '../pages/css/report.css';
 
 // ReportModalProps 인터페이스 정의
 interface ReportModalProps {
