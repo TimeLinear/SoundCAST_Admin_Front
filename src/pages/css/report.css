@@ -1,4 +1,160 @@
-.report {
-    width: 100%;
-    background-color: green;
+.report-page {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.report-management h1 {
+  margin-top: 0px;
+  margin-left: 30px;
+}
+
+.report-content {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  background-color: #F8FAFB;
+}
+
+table {
+  border-radius: 8px;
+}
+
+.thead {
+  color: #000000;
+}
+
+
+.report-list {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 950px;
+  height: 800px;
+}
+
+.report-management table {
+  border-radius: 10px;
+}
+
+@font-face {
+  font-family: 'TheJamsil5Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+.report-management select,
+option {
+  border-radius: 8px;
+  height: 25px;
+  width: 80px;
+}
+
+.select-management {
+  margin-bottom: 10px;
+  background-color: black;
+  color: #ffffff;
+}
+
+/* Report.css */
+
+.modal {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 60%;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal button {
+  background-color: #ee3e4c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+}
+
+.modal button:hover {
+  background-color: #0056b3;
+}
+
+.reason-div {
+  width: 350px;
+  height: 30px;
+  background-color: #F8FAFB;
+  border: solid 1px;
+  border-radius: 8px;
+  border-color: #D4D4D4;
+  text-align: left;
+  line-height: 30px;
+  padding-left: 5px;
+}
+
+.common-div {
+  width: 200px;
+  height: 30px;
+  background-color: #F8FAFB;
+  border: solid 1px;
+  border-radius: 8px;
+  border-color: #D4D4D4;
+  text-align: left;
+  line-height: 30px;
+  padding-left: 5px;
+}
+
+.inline-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  /* 항목 사이의 간격 */
+}
+
+.text-div {
+  width: 100%;
+  height: 100px;
+  background-color: #F8FAFB;
+  border: solid 1px;
+  border-radius: 8px;
+  border-color: #D4D4D4;
+  text-align: left;
+  line-height: 30px;
+  padding-left: 5px;
+  overflow-y: auto;
+}
+
+.inline-container2 {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* 항목 사이의 간격 */
+  margin-top: 25px;
+  margin-left: 31%;
 }
