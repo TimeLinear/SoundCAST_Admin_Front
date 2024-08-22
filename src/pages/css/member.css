@@ -3,7 +3,6 @@
     /* background-color: orange; */
     display: flex;
     justify-content: center;
-    background-color: #F8FAFB;
     min-width: 1350px;
     overflow-y: auto;
 }
@@ -193,6 +192,7 @@
 
 /* 회원 목록 */
 .member-list-form {
+    width: 100%;
     background-color: #F8FAFB;
 }
 .member-list-form > div{
@@ -233,15 +233,22 @@ input[type="checkbox"] {
 }
 
 .member-list-form-4 {
-    width: 30%
+    width: 30%;
 }
 .member-list-form-5 {
-    width: 35%
+    width: 35%;
+}
+.member-list-form-5 p {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0px;
 }
 
 .member-unordered-list {
     margin: 0px;
     padding: 0px;
+    width: 100%;
 }
 .member-unordered-list img{
     height: 25px;

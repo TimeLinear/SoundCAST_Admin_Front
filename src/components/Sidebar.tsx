@@ -1,7 +1,8 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { SidebarProps } from "../type/siderbar";
 
-export default function Sidebar(){
+export default function Sidebar({ isCollapsed, onToggle }: SidebarProps){
 
     const navi = useNavigate();
     const location = useLocation(); // 현재 경로를 가져오기 위한 훅
@@ -34,15 +35,18 @@ export default function Sidebar(){
       ];
     
       return (
-        <div className="sidebar">
+        <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
           <div className="logobox">
             <p>ADMIN</p>
-            <div className="logo-backgound-img"/>
+            <div className="logo-background-img"/>
+              <div className='sidebar-toggle-button-div'>
+                <img src={`/images/sidebar-icon${isCollapsed ? '' : '2'}.png`} className="sidebar-toggle-button" onClick={onToggle} />
+              </div>
           </div>
     
-          <ul className="menu">
+          <ul className="sidebar-menu-ul">
             {menuItems.map((item) => (
-              <li key={item.key}>
+              <li key={item.key} className="sidebar-menu-li">
                 <button
                   className={`${item.key}-menu-button ${
                     sideMenuState === item.key ? "selected" : ""
@@ -53,7 +57,7 @@ export default function Sidebar(){
                   onMouseLeave={handleMouseLeave} // 마우스 리브 이벤트 핸들러
                 >
 
-                  <img className="dashboard-icon" src={
+                  <img className={`menu-icon ${isCollapsed ? 'collapsed' : ''}`} src={
                     (sideMenuState === item.key || hoveredItem === item.key)
                       ? item.hoverIconPath
                       : item.iconPath
@@ -62,13 +66,14 @@ export default function Sidebar(){
                   />
 
                   <p className={`menu-name ${sideMenuState === item.key ? "selected" : ""}`}>
-                    {item.label}
+                      {item.label}
                   </p>
 
                 </button>
               </li>
             ))}
           </ul>
+
         </div>
       );
 }

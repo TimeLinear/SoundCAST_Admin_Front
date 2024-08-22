@@ -1,9 +1,8 @@
-import { ChangeEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
 import './css/member.css';
 import Pagination from '../components/Pagination';
 import axios from 'axios';
-import { MemberType, SearchKeyword } from '../type/member';
-import useInput from '../hook/useInput';
+import { MemberType } from '../type/member';
 
 export default function Member(){
 
@@ -23,11 +22,6 @@ export default function Member(){
         }
     },[])
 
-    // const [searchKeyword, onChangeKeyword] = useInput<SearchKeyword>({
-    //     type: '닉네임',
-    //     searchTerm: ''
-    // });
-
     const searchMenus = () => {
         const searchTerm = searchKeyword || "defaultSearchTerm"; // 빈 문자열 대신 기본값 설정
         const url = `http://localhost:8089/soundcastadmin/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
@@ -40,21 +34,57 @@ export default function Member(){
             });
     }
 
+    const deleteMenus = () => {
+        axios.put("http://localhost:8089/soundcastadmin/member/deleteMembers", deleteList).
+        then(response => {
+            console.log(response.data);
+            
+            if(response.data > 0){
+                alert("삭제 성공");
+                // 화면에 바로 반영하기 위해 필터링된 목록으로 상태 업데이트
+                setMemberListItems(prevItems =>
+                    prevItems.filter(item => !deleteList.includes(item.memberNo))
+                );
+            } else{
+                alert("삭제 실패");
+            }
+
+            // 삭제 후 삭제 리스트 초기화
+            setDeleteList([]);
+        })
+        .catch(error => {
+            console.error("Failed to delete members", error);
+        });
+    }
+
     const [dropShow ,setDropShow] = useState(false);
     const [animateDropdown, setAnimateDropdown] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLDivElement>(null); // 드롭다운 버튼에 대한 참조 추가
     
     const [searchKeyword, setSearchKeyword] = useState("");
+    const [deleteList, setDeleteList] = useState<number[]>([]);
+
+    const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const memberNo = Number(e.target.value);
+        setDeleteList(prevSelected =>
+            e.target.checked
+                ? [...prevSelected, memberNo]
+                : prevSelected.filter(no => no !== memberNo)
+        );
+    };
 
     const handleSearchKeyword = (e:ChangeEvent<HTMLInputElement>) => {
         setSearchKeyword(e.target.value);
         console.log(searchKeyword);
     }
 
-    // const dropChange = () => {
-    //     setDropShow(!dropShow);
-    // }
+    // Enter 키를 눌렀을 때 검색을 실행하는 함수
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            searchMenus();
+        }
+    }
 
     const dropChange = (e:ReactMouseEvent) => {
         e.stopPropagation();  // 이벤트 전파를 막음
@@ -100,30 +130,13 @@ export default function Member(){
         { key : "nickname", name : "닉네임"},
         { key : "email", name : "이메일"}
     ]
-
-    // const memberListItems:any = [
-    //     {no: "1", profileImg: "/images/mimikyu.png", artist: "Sopp", email: "soppworld@naver.com"},
-    //     {no: "2", profileImg: "/images/mimikyu.png", artist: "react" , email: "fffjjj@naver.com"},
-    //     {no: "3", profileImg: "/images/mimikyu.png", artist: "Du" , email: "ido@gmail.com"},
-    //     {no: "4", profileImg: "/images/mimikyu.png", artist: "Soo" , email: "udong@gmail.com"},
-    //     {no: "5", profileImg: "/images/mimikyu.png", artist: "jsp" , email: "jsplove@gmail.com"},
-    //     {no: "6", profileImg: "/images/mimikyu.png", artist: "foreach" , email: "fore@gmail.com"},
-    //     {no: "7", profileImg: "/images/mimikyu.png", artist: "Chan" , email: "gyung@gmail.com"},
-    //     {no: "8", profileImg: "/images/mimikyu.png", artist: "mkm" , email: "mkm@gmail.com"},
-    //     {no: "9", profileImg: "/images/mimikyu.png", artist: "Jin" , email: "jinzza@gmail.com"},
-    //     {no: "10", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"},
-    //     {no: "11", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"}
-    // ]
-
-    // memberListItems.push(...memberListItems);
-    // memberListItems.push(...memberListItems);
-    // memberListItems.push(...memberListItems);
-    // memberListItems.push(...memberListItems);
-
+    
     /* 페이지네이션 시작 */
-
+    // 한 페이지당 항목 수
+    const itemsPerPage = 10;
+    
     const [currentPage, setCurrentPage] = useState<number>(1); /* 현재 페이지, Pagination.tsx로 넘김 */
-    const totalPages: number = Math.ceil(memberListItems.length / 10); /* 페이지 (버튼) 수, Pagination.tsx로 넘김 */
+    const totalPages: number = Math.ceil(memberListItems.length / itemsPerPage ); /* 페이지 (버튼) 수, Pagination.tsx로 넘김 */
 
     const handlePageChange = (pageNumber: number) => { /* pageNumber는 Pagination.tsx에서 기술 , Pagination.tsx로 넘김 */
     setCurrentPage(pageNumber); /* 현재 페이지의 state를 Pagination.tsx에서 받아온 pageNumber로 변경,
@@ -132,9 +145,6 @@ export default function Member(){
 
     // 페이지 변경 시 데이터 가져오기 또는 화면 갱신 로직 추가
     };
-
-    // 한 페이지당 항목 수
-    const itemsPerPage = 10;
 
     // 현재 페이지의 항목을 계산
     const indexOfLastItem = currentPage * itemsPerPage; // 현재 페이지에서 가장 마지막 리스트 아이템의 인덱스 + 1
@@ -187,7 +197,9 @@ export default function Member(){
 
                             <input className='member-input' placeholder='검색어 입력'
                                 name='searchTerm'
-                                onChange={handleSearchKeyword}></input>
+                                onChange={handleSearchKeyword}
+                                onKeyDown={handleKeyDown} // Enter 키 감지 핸들러 추가
+                            />
 
                             <button className='member-search-button'
                              onClick={() => searchMenus()}>
@@ -208,13 +220,14 @@ export default function Member(){
                                     <li key={item.memberNo} /* 고유한 key prop 추가 */
                                         className={`member-list-${item.memberNo} member-list-common-css`}>
                                         <div className='member-list-form-1'>
-                                            <input type="checkbox" />
+                                            <input type="checkbox" value={item.memberNo}
+                                              onChange={handleCheckboxChange}/>
                                         </div>
                                         <div className='member-list-form-2'>{item.memberNo}</div>
                                         <div className='member-list-form-3'>
                                             <img src={item.profileImage.profileImagePath} /></div>
                                         <div className='member-list-form-4'>{item.memberNickname}</div>
-                                        <div className='member-list-form-5'>{item.memberEmail}</div>
+                                        <div className='member-list-form-5'><p>{item.memberEmail}</p></div>
                                     </li>
                                 ))}
 
@@ -227,7 +240,8 @@ export default function Member(){
                                 totalPages={totalPages}
                                 onPageChange={handlePageChange}
                             />
-                            <button className='member-delete-button'>
+                            <button className='member-delete-button'
+                             onClick={deleteMenus} /*style={{height:'60px', width:'100px'}}*/>
                                 <p className='member-delete-p'>회원삭제</p>
                             </button>
                         </div>

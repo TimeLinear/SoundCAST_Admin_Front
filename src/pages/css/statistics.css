@@ -3,7 +3,6 @@
     /* background-color: blue; */
     display: flex;
     justify-content: center;
-    background-color: #F8FAFB;
     min-width: 1350px;
     overflow-y: auto;
 }
