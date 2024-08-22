@@ -1,4 +1,218 @@
 .music-page {
-    width: 100%;
-    background-color: yellow;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.music-management h1 {
+  margin-top: 0px;
+  margin-bottom: 0px; 
+}
+
+.music-content {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.music-upload {
+  padding: 5px;
+  height: 150px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-color: #ECECEC;
+
+}
+
+.dropzone {
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.dropzone:hover {
+  border-color: #1C003B;
+}
+
+.music-list {
+  flex: 1;
+  padding-top: 20px;
+}
+
+/* MusicManagement.css의 내용이었던 것 */
+.music-page .music-list {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  width: 930px;
+  height: 700px;
+}
+
+.music-list h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 900px;
+  height: 50px;
+}
+
+.search-bar select {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 120px;
+  height: 40px;
+}
+
+.search-bar input {
+  width: 700px;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #F8FAFB;
+
+}
+
+.music-button{
+  width: 120px;
+  height: 40px;
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #770ABF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-button{
+  width: 120px;
+  height: 40px;
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #ee3e4c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  background-color: #F8FAFB;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #ee3e4c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.music-upload p {
+  color: #3D3D3D;
+}
+
+.music-upload textarea {
+  width: 950px;
+  height: 150px;
+
+  background: #F8FAFB;
+  border: 1px solid #ECECEC;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 10px;
+
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+  text-align: center;
+
+  color: #3D3D3D;
+
+  opacity: 0.3;
+}
+
+.page-item {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.page-link:hover {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.page-item.disabled .page-link {
+  color: #ddd;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.page-link:first-of-type {
+  margin-right: 5px;
+}
+
+.page-link:last-of-type {
+  margin-left: 5px;
+}
+
+.upload-modal{
+  background-color: black;
+  color: #ffffff;
+  width: 500px;
+  height: 80px;
+  font-size: 20px;
+  margin-left: 225px;
+  background: linear-gradient(black, grey 60%,black); 
 }

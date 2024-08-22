@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 import {  } from 'react-dom';
-import { Route, Routes, useNavigate } from 'react-router-dom';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
+
 
 function App() {
 
