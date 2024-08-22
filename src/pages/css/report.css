@@ -4,6 +4,15 @@
   overflow: hidden;
 }
 
+.report-content button {
+  padding: 5px 10px;
+  background-color: #ee3e4c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .report-management h1 {
   margin-top: 0px;
   margin-left: 30px;
