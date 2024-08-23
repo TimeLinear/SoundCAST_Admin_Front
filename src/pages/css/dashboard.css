@@ -1,10 +1,11 @@
 .dashboard-page {
+    height: 100%;
     width: 100%;
-    /* background-color: red; */
+    background-color: #F8FAFB;
     display: flex;
     justify-content: center;
     min-width: 1350px;
-    overflow-y: auto;
+    min-height: 900px;
 }
 
 .dashboard-title {

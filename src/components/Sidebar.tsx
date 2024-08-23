@@ -38,17 +38,21 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps){
         <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
           <div className="logobox">
             <p>ADMIN</p>
-            <div className="logo-background-img"/>
+            <button className="logo-background-button" onClick={menuSelect} value="dashboard">
+              <div className="logo-background-img"></div>
+            </button>
+            <div className="sidebar-toggle-button-div2" onClick={onToggle}>
               <div className='sidebar-toggle-button-div'>
-                <img src={`/images/sidebar-icon${isCollapsed ? '' : '2'}.png`} className="sidebar-toggle-button" onClick={onToggle} />
+                <img src={`/images/sidebar-icon${isCollapsed ? '' : '2'}.png`} className="sidebar-toggle-button"/>
               </div>
+            </div>       
           </div>
     
           <ul className="sidebar-menu-ul">
             {menuItems.map((item) => (
               <li key={item.key} className="sidebar-menu-li">
                 <button
-                  className={`${item.key}-menu-button ${
+                  className={`sidebar-menu-button ${
                     sideMenuState === item.key ? "selected" : ""
                   }`}
                   value={item.key}

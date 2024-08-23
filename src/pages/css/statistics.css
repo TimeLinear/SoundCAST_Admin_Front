@@ -1,9 +1,11 @@
 .statistics-page {
+    height: 100%;
     width: 100%;
-    /* background-color: blue; */
+    background-color: #F8FAFB;
     display: flex;
     justify-content: center;
     min-width: 1350px;
+    min-height: 900px;
     overflow-y: auto;
 }
 
