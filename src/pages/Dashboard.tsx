@@ -1,16 +1,35 @@
+import { useEffect, useState } from 'react';
 import './css/dashboard.css';
+import axios from '../utils/CustomAxios';
+import { MusicType } from '../type/music';
 
 export default function Dashboard(){
 
-    const top5Music = [
-        {profileImg: "/images/mimikyu.png", title: "Du Du Doaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", artist: "Duaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", genre: "Jazz", mood: "펑키", license: "Y"},
-        {profileImg: "/images/bono.jpg", title: "I Am The Best", artist: "Chan", genre: "Rock", mood: "화남", license: "N"},
-        {profileImg: "/images/mimikyu.png", title: "Wanna Go Home", artist: "Gun", genre: "Pop", mood: "슬픔", license: "Y"},
-        {profileImg: "/images/mimikyu.png", title: "Travel", artist: "Jin", genre: "Classical", mood: "밝음", license: "N"},
-        {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"},
-        {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"},
-        {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"}
-      ];
+    // const top5Music = [
+    //     {profileImg: "/images/mimikyu.png", title: "Du Du Doaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", artist: "Duaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", genre: "Jazz", mood: "펑키", license: "Y"},
+    //     {profileImg: "/images/bono.jpg", title: "I Am The Best", artist: "Chan", genre: "Rock", mood: "화남", license: "N"},
+    //     {profileImg: "/images/mimikyu.png", title: "Wanna Go Home", artist: "Gun", genre: "Pop", mood: "슬픔", license: "Y"},
+    //     {profileImg: "/images/mimikyu.png", title: "Travel", artist: "Jin", genre: "Classical", mood: "밝음", license: "N"},
+    //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"},
+    //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"},
+    //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"}
+    //   ];
+
+    const [top5MusicItems, setTop5MusicItems] = useState<MusicType[]>([]);
+
+    useEffect(()=>{
+        axios.get("http://localhost:8087/soundcast/song/top5Music")
+        .then((response) => {
+            setTop5MusicItems(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        return() => {
+            //컴포넌트가 소멸될때 실행할 코드
+            setTop5MusicItems([]);
+        }
+    },[])
 
     const newMusic = [
         {profileImg: "/images/mimikyu.png", title: "Du Du Do", artist: "Du", genre: "Jazz", mood: "펑키", license: "Y"},
@@ -39,7 +58,7 @@ export default function Dashboard(){
                             <div className='content-box'>
 
                                 <ul className="content-unorderedlist">
-                                    {top5Music.slice(0, 5).map((item, index) => (
+                                    {top5MusicItems.slice(0, 5).map((item, index) => (
                                     <li className='content-list-with-rank'>
 
                                         <p className='rank'>
@@ -47,13 +66,13 @@ export default function Dashboard(){
                                         </p>
 
                                         <div className='content-list'>
-                                            <img className='content-list-img' src={item.profileImg}/>
+                                            <img className='content-list-img' src={item.songImage.songImagePathName}/>
                                             <div className='title-artist-box'>
                                                 <p className='title'>
-                                                    {item.title}
+                                                    {item.songTitle}
                                                 </p>
                                                 <p className='artist'>
-                                                    {item.artist}
+                                                    {item.memberNickname}
                                                 </p>
                                             </div>
                                             <div className='genre-mood-license-threebox'>
@@ -69,7 +88,7 @@ export default function Dashboard(){
                                                 </div>
                                                 <img 
                                                     className='license-img'
-                                                    src={item.license === "Y" ? "/images/license_y.png" : "/images/license_n.png"}
+                                                    src={item.songLicense ? "/images/license_y.png" : "/images/license_n.png"}
                                                 />
                                             </div>
                                             

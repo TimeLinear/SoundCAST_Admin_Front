@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
 import './css/member.css';
 import Pagination from '../components/Pagination';
-import axios from 'axios';
+import axios from '../utils/CustomAxios';
 import { MemberType } from '../type/member';
 
 export default function Member(){
@@ -9,7 +9,7 @@ export default function Member(){
     const [memberListItems, setMemberListItems] = useState<MemberType[]>([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:8089/soundcastadmin/member/selectMembers")
+        axios.get("http://localhost:8087/soundcast/member/selectMembers")
         .then((response) => {
             setMemberListItems(response.data);
         })
@@ -24,7 +24,7 @@ export default function Member(){
 
     const searchMenus = () => {
         const searchTerm = searchKeyword || "defaultSearchTerm"; // 빈 문자열 대신 기본값 설정
-        const url = `http://localhost:8089/soundcastadmin/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
+        const url = `http://localhost:8087/soundcast/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
 
         axios.
             get(url).
@@ -35,7 +35,7 @@ export default function Member(){
     }
 
     const deleteMenus = () => {
-        axios.put("http://localhost:8089/soundcastadmin/member/deleteMembers", deleteList).
+        axios.put("http://localhost:8087/soundcast/member/deleteMembers", deleteList).
         then(response => {
             console.log(response.data);
             

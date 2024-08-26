@@ -4,7 +4,7 @@ export interface MemberType{
     memberNickname : string,
     memberEmail? : string
     profileImage : {
-        profileImageNo:number,
+        // profileImageNo:number,
         profileImagePath:string
     }
 }
