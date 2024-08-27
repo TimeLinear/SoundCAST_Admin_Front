@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './css/dashboard.css';
 import axios from '../utils/CustomAxios';
-import { MusicType } from '../type/music';
+import { Top5MusicType } from '../type/music';
 
 export default function Dashboard(){
 
@@ -15,7 +15,7 @@ export default function Dashboard(){
     //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"}
     //   ];
 
-    const [top5MusicItems, setTop5MusicItems] = useState<MusicType[]>([]);
+    const [top5MusicItems, setTop5MusicItems] = useState<Top5MusicType[]>([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8087/soundcast/song/top5Music")
@@ -44,6 +44,8 @@ export default function Dashboard(){
         {profileImg: "/images/mimikyu.png", title: "Wanna Go Home", artist: "Gun", reportText: "[기타]아이가 듣기 좋지 않아요aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
     ]
 
+    console.log(top5MusicItems);
+
     return (
         <div className='dashboard-page'>
             
@@ -66,7 +68,8 @@ export default function Dashboard(){
                                         </p>
 
                                         <div className='content-list'>
-                                            <img className='content-list-img' src={item.songImage.songImagePathName}/>
+                                            <img className='content-list-img'
+                                            src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}`}/>
                                             <div className='title-artist-box'>
                                                 <p className='title'>
                                                     {item.songTitle}
@@ -78,12 +81,12 @@ export default function Dashboard(){
                                             <div className='genre-mood-license-threebox'>
                                                 <div className='genre-box'>
                                                     <p className='genre'>
-                                                        {item.genre}
+                                                        {item.genreName}
                                                     </p>
                                                 </div>
                                                 <div className='mood-box'>
                                                     <p className='mood'>
-                                                        {item.mood}
+                                                        {item.moodName}
                                                     </p>
                                                 </div>
                                                 <img 

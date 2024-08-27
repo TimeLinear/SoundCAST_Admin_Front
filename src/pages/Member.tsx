@@ -225,7 +225,7 @@ export default function Member(){
                                         </div>
                                         <div className='member-list-form-2'>{item.memberNo}</div>
                                         <div className='member-list-form-3'>
-                                            <img src={item.profileImage.profileImagePath} /></div>
+                                            <img src={`http://localhost:8087/soundcast/resource/${item.profileImage.profileImagePath}`} /></div>
                                         <div className='member-list-form-4'>{item.memberNickname}</div>
                                         <div className='member-list-form-5'><p>{item.memberEmail}</p></div>
                                     </li>

@@ -1,10 +1,10 @@
-export interface MusicType{ //SongExt
+export interface Top5MusicType{ //SongExt
     songImage : {
         songImagePathName:string
     },
     songTitle : string,
     memberNickname : string
-    genre : string,
-    mood : string,
+    genreName : string,
+    moodName : string,
     songLicense : string
 }
