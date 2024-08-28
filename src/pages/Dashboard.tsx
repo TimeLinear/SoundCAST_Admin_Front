@@ -5,17 +5,8 @@ import { Top5MusicType } from '../type/music';
 
 export default function Dashboard(){
 
-    // const top5Music = [
-    //     {profileImg: "/images/mimikyu.png", title: "Du Du Doaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", artist: "Duaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", genre: "Jazz", mood: "펑키", license: "Y"},
-    //     {profileImg: "/images/bono.jpg", title: "I Am The Best", artist: "Chan", genre: "Rock", mood: "화남", license: "N"},
-    //     {profileImg: "/images/mimikyu.png", title: "Wanna Go Home", artist: "Gun", genre: "Pop", mood: "슬픔", license: "Y"},
-    //     {profileImg: "/images/mimikyu.png", title: "Travel", artist: "Jin", genre: "Classical", mood: "밝음", license: "N"},
-    //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"},
-    //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"},
-    //     {profileImg: "/images/mimikyu.png", title: "Mimikyu", artist: "Soo", genre: "Sound Track", mood: "행복", license: "N"}
-    //   ];
-
     const [top5MusicItems, setTop5MusicItems] = useState<Top5MusicType[]>([]);
+    const [newMusicItems, setNewMusicItems] = useState<Top5MusicType[]>([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8087/soundcast/song/top5Music")
@@ -25,17 +16,26 @@ export default function Dashboard(){
         .catch((error) => {
             console.log(error);
         })
+
+        axios.get("http://localhost:8087/soundcast/song/newMusic")
+        .then((response) => {
+            setNewMusicItems(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+
         return() => {
             //컴포넌트가 소멸될때 실행할 코드
             setTop5MusicItems([]);
         }
     },[])
 
-    const newMusic = [
-        {profileImg: "/images/mimikyu.png", title: "Du Du Do", artist: "Du", genre: "Jazz", mood: "펑키", license: "Y"},
-        {profileImg: "/images/mimikyu.png", title: "I Am The Best", artist: "Chan", genre: "Rock", mood: "화남", license: "N"},
-        {profileImg: "/images/mimikyu.png", title: "Wanna Go Home", artist: "Gun", genre: "Pop", mood: "슬픔", license: "Y"}
-    ]
+    // const newMusic = [
+    //     {profileImg: "/images/mimikyu.png", title: "Du Du Do", artist: "Du", genre: "Jazz", mood: "펑키", license: "Y"},
+    //     {profileImg: "/images/mimikyu.png", title: "I Am The Best", artist: "Chan", genre: "Rock", mood: "화남", license: "N"},
+    //     {profileImg: "/images/mimikyu.png", title: "Wanna Go Home", artist: "Gun", genre: "Pop", mood: "슬픔", license: "Y"}
+    // ]
 
     const recentReport = [
         {profileImg: "/images/mimikyu.png", title: "Du Du Do", artist: "Du", reportText: "음원이 아닌 파일 업로드"},
@@ -63,18 +63,24 @@ export default function Dashboard(){
                                     {top5MusicItems.slice(0, 5).map((item, index) => (
                                     <li className='content-list-with-rank'>
 
-                                        <p className='rank'>
+                                        <p className='dashboard-rank' style={{marginRight: '10px'}}>
                                             {index+1}
                                         </p>
+                                        <div className='dashboard-download-img-and-number-div'>
+                                            <img className='dashboard-download-img' src='/images/download-button.png' style={{marginLeft: '5px'}}></img>
+                                            <div className='dashboard-download-number-div' style={{marginRight: '5px'}}>
+                                                <p className='dashboard-download-number'>{item.downloadCountNumber}</p>
+                                            </div>
+                                        </div>
 
-                                        <div className='content-list'>
+                                        <div className='content-list' style={{width:'80%'}}>
                                             <img className='content-list-img'
-                                            src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}`}/>
+                                            src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}${item.songImage.songImageName}`}/>
                                             <div className='title-artist-box'>
-                                                <p className='title'>
+                                                <p className='title' style={{width:'100px'}}>
                                                     {item.songTitle}
                                                 </p>
-                                                <p className='artist'>
+                                                <p className='artist' style={{width:'100px'}}>
                                                     {item.memberNickname}
                                                 </p>
                                             </div>
@@ -108,37 +114,38 @@ export default function Dashboard(){
                             <div className='content-box'>
 
                                 <ul className="content-unorderedlist">
-                                    {newMusic.slice(0, 5).map((item, index) => (
+                                    {newMusicItems.slice(0, 5).map((item, index) => (
                                     <li className='content-list-with-rank'>
 
-                                        <p className='rank'>
+                                        <p className='dashboard-rank'>
                                             {index+1}
                                         </p>
 
                                         <div className='content-list'>
-                                            <img className='content-list-img' src={item.profileImg}/>
+                                            <img className='content-list-img'
+                                            src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}${item.songImage.songImageName}`}/>
                                             <div className='title-artist-box'>
                                                 <p className='title'>
-                                                    {item.title}
+                                                    {item.songTitle}
                                                 </p>
                                                 <p className='artist'>
-                                                    {item.artist}
+                                                    {item.memberNickname}
                                                 </p>
                                             </div>
                                             <div className='genre-mood-license-threebox'>
                                                 <div className='genre-box'>
                                                     <p className='genre'>
-                                                        {item.genre}
+                                                        {item.genreName}
                                                     </p>
                                                 </div>
                                                 <div className='mood-box'>
                                                     <p className='mood'>
-                                                        {item.mood}
+                                                        {item.moodName}
                                                     </p>
                                                 </div>
                                                 <img 
                                                     className='license-img'
-                                                    src={item.license === "Y" ? "/images/license_y.png" : "/images/license_n.png"}
+                                                    src={item.songLicense ? "/images/license_y.png" : "/images/license_n.png"}
                                                 />
                                             </div>
                                             
@@ -161,7 +168,7 @@ export default function Dashboard(){
                                     {recentReport.slice(0, 5).map((item, index) => (
                                     <li className='content-list-with-rank'>
 
-                                        <p className='rank'>
+                                        <p className='dashboard-rank'>
                                             {index+1}
                                         </p>
 
