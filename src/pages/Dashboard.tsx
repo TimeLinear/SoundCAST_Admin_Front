@@ -3,8 +3,13 @@ import './css/dashboard.css';
 import axios from '../utils/CustomAxios';
 import { DashboardMusicType } from '../type/music';
 import { DashboardReportType } from '../type/report';
+import { useNavigate } from 'react-router-dom';
 
-export default function Dashboard() {
+interface DashboardProps {
+    onNavigateToReport: (path:string) => void;
+}
+
+export default function Dashboard({ onNavigateToReport }: DashboardProps) {
 
     const [top5MusicItems, setTop5MusicItems] = useState<DashboardMusicType[]>([]);
     const [newMusicItems, setNewMusicItems] = useState<DashboardMusicType[]>([]);
@@ -71,44 +76,44 @@ export default function Dashboard() {
 
                 <p className='dashboard-title'>대시보드</p>
 
-                <div className='four-box'>
-                    <div className='first-second-box'>
-                        <div className='top5-music'>
-                            <p className='content-title'>최근 한달간 인기 있는 음원 Top 5</p>
-                            <div className='content-box'>
+                <div className='dashboard-four-box'>
+                    <div className='dashboard-first-second-box'>
+                        <div className='dashboard-top5-music'>
+                            <p className='dashboard-content-title'>최근 한달간 인기 있는 음원 Top 5</p>
+                            <div className='dashboard-content-box'>
 
-                                <ul className="content-unorderedlist">
+                                <ul className="dashboard-content-unorderedlist">
                                     {top5MusicItems.slice(0, 5).map((item, index) => (
-                                        <li className='content-list-with-rank'>
+                                        <li key={index} className='dashboard-content-list-with-rank'>
 
                                             <p className='dashboard-rank' style={{ marginRight: '10px' }}>
                                                 {index + 1}
                                             </p>
 
-                                            <div className='content-list' style={{ width: '80%' }}>
-                                                <img className='content-list-img'
+                                            <div className='dashboard-content-list' style={{ width: '80%' }} onClick={() => window.location.href = `http://192.168.30.7:3000/song/detail/${item.songNo}`}>
+                                                <img className='dashboard-content-list-img'
                                                     src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}${item.songImage.songImageName}`} />
-                                                <div className='title-artist-box'>
-                                                    <p className='title' style={{ width: '100px' }}>
+                                                <div className='dashboard-songtitle-artist-box'>
+                                                    <p className='dashboard-songtitle' style={{ width: '100px' }}>
                                                         {item.songTitle}
                                                     </p>
-                                                    <p className='artist' style={{ width: '100px' }}>
+                                                    <p className='dashboard-artist' style={{ width: '100px' }}>
                                                         {item.memberNickname}
                                                     </p>
                                                 </div>
-                                                <div className='genre-mood-license-threebox'>
-                                                    <div className='genre-box'>
-                                                        <p className='genre'>
+                                                <div className='dashboard-genre-mood-license-threebox'>
+                                                    <div className='dashboard-genre-box'>
+                                                        <p className='dashboard-genre'>
                                                             {item.genreName}
                                                         </p>
                                                     </div>
-                                                    <div className='mood-box'>
-                                                        <p className='mood'>
+                                                    <div className='dashboard-mood-box'>
+                                                        <p className='dashboard-mood'>
                                                             {item.moodName}
                                                         </p>
                                                     </div>
                                                     <img
-                                                        className='license-img'
+                                                        className='dashboard-license-img'
                                                         src={item.songLicense ? "/images/license_y.png" : "/images/license_n.png"}
                                                     />
                                                 </div>
@@ -128,42 +133,42 @@ export default function Dashboard() {
 
                             </div>
                         </div>
-                        <div className='new-music'>
-                            <p className='content-title'>최신 음원</p>
-                            <div className='content-box'>
+                        <div className='dashboard-new-music'>
+                            <p className='dashboard-content-title'>최신 음원</p>
+                            <div className='dashboard-content-box'>
 
-                                <ul className="content-unorderedlist">
+                                <ul className="dashboard-content-unorderedlist">
                                     {newMusicItems.slice(0, 5).map((item, index) => (
-                                        <li className='content-list-with-rank'>
+                                        <li key={index} className='dashboard-content-list-with-rank'>
 
                                             <p className='dashboard-rank' style={{ marginRight: '10px' }}>
                                                 {index + 1}
                                             </p>
 
-                                            <div className='content-list' style={{ width: '80%'}}>
-                                                <img className='content-list-img'
+                                            <div className='dashboard-content-list' style={{ width: '80%'}} onClick={() => window.location.href = `http://192.168.30.7:3000/song/detail/${item.songNo}`}>
+                                                <img className='dashboard-content-list-img'
                                                     src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}${item.songImage.songImageName}`} />
-                                                <div className='title-artist-box'>
-                                                    <p className='title' style={{ width: '100px' }}>
+                                                <div className='dashboard-songtitle-artist-box'>
+                                                    <p className='dashboard-songtitle' style={{ width: '100px' }}>
                                                         {item.songTitle}
                                                     </p>
-                                                    <p className='artist' style={{ width: '100px' }}>
+                                                    <p className='dashboard-artist' style={{ width: '100px' }}>
                                                         {item.memberNickname}
                                                     </p>
                                                 </div>
-                                                <div className='genre-mood-license-threebox'>
-                                                    <div className='genre-box'>
-                                                        <p className='genre'>
+                                                <div className='dashboard-genre-mood-license-threebox'>
+                                                    <div className='dashboard-genre-box'>
+                                                        <p className='dashboard-genre'>
                                                             {item.genreName}
                                                         </p>
                                                     </div>
-                                                    <div className='mood-box'>
-                                                        <p className='mood'>
+                                                    <div className='dashboard-mood-box'>
+                                                        <p className='dashboard-mood'>
                                                             {item.moodName}
                                                         </p>
                                                     </div>
                                                     <img
-                                                        className='license-img'
+                                                        className='dashboard-license-img'
                                                         src={item.songLicense ? "/images/license_y.png" : "/images/license_n.png"}
                                                     />
                                                 </div>
@@ -182,43 +187,43 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className='third-fourth-box'>
-                        <div className='recent-report'>
-                            <p className='content-title'>최근 신고 내역</p>
-                            <div className='content-box'>
+                    <div className='dashboard-third-fourth-box'>
+                        <div className='dashboard-recent-report'>
+                            <p className='dashboard-content-title'>최근 신고 내역</p>
+                            <div className='dashboard-content-box'>
 
-                                <ul className="content-unorderedlist">
+                                <ul className="dashboard-content-unorderedlist">
                                     {recentReportItems.slice(0, 5).map((item, index) => (
-                                        <li className='content-list-with-rank'>
+                                        <li key={index} className='dashboard-content-list-with-rank'>
 
                                             <p className='dashboard-rank'>
                                                 {index + 1}
                                             </p>
 
-                                            <div className='content-list'>
-                                                <img className='content-list-img'
+                                            <div className='dashboard-content-list' onClick={() => onNavigateToReport('report')}>
+                                                <img className='dashboard-content-list-img'
                                                  src={`http://localhost:8087/soundcast/resource/${item.song.songImage.songImagePathName}${item.song.songImage.songImageName}`}/>
-                                                <div className='title-artist-box'>
-                                                    <p className='title'>
+                                                <div className='dashboard-songtitle-artist-box'>
+                                                    <p className='dashboard-songtitle'>
                                                         {item.song.songTitle}
                                                     </p>
-                                                    <p className='artist'>
+                                                    <p className='dashboard-artist'>
                                                         {item.member.memberNickname}
                                                     </p>
                                                 </div>
 
                                                 {item.reportText.substring(0, 4) === "[기타]" ? (
-                                                    <div className='report-box etc'>
-                                                        <p className='report-text main'>
+                                                    <div className='dashboard-report-box etc'>
+                                                        <p className='dashboard-report-text main'>
                                                             {item.reportText.substring(1, 3)}
                                                         </p>
-                                                        <p className='report-text sub'>
+                                                        <p className='dashboard-report-text sub'>
                                                             {item.reportText.substring(4).trim()}
                                                         </p>
                                                     </div>
                                                 ) : (
-                                                    <div className='report-box'>
-                                                        <p className='report-text'>
+                                                    <div className='dashboard-report-box'>
+                                                        <p className='dashboard-report-text'>
                                                             {item.reportText}
                                                         </p>
                                                     </div>
@@ -232,9 +237,9 @@ export default function Dashboard() {
 
                             </div>
                         </div>
-                        <div className='daily-download-statistics'>
-                            <p className='content-title'>일별 다운로드 통계</p>
-                            <div className='content-box'>
+                        <div className='dashboard-daily-download-statistics'>
+                            <p className='dashboard-content-title'>일별 다운로드 통계</p>
+                            <div className='dashboard-content-box'>
                                 <div className='dashboard-statistics'>
 
                                 </div>

@@ -1,4 +1,4 @@
-.dashboard-page {
+.dashboard-page { /* height, width, min-width, min-height, overflow-y는 똑같이 지켜줄것*/
     height: 100%;
     width: 100%;
     background-color: #F8FAFB;
@@ -16,13 +16,13 @@
     margin-top: 54px;
 }
 
-.four-box {
+.dashboard-four-box {
     margin-top: 28px;
     height: 750px;
     width: 1260px;
 }
 
-.first-second-box, .third-fourth-box {
+.dashboard-first-second-box, .dashboard-third-fourth-box {
     /* border: 1px solid black; */
     height: 50%;
     width: 100%;
@@ -30,11 +30,11 @@
     justify-content: space-between;
 }
 
-.third-fourth-box {
+.dashboard-third-fourth-box {
     align-items: end;
 }
 
-.top5-music, .new-music, .recent-report, .daily-download-statistics{
+.dashboard-top5-music, .dashboard-new-music, .dashboard-recent-report, .dashboard-daily-download-statistics{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,7 @@
     position: relative;
 }
 
-.content-title {
+.dashboard-content-title {
     position: absolute;
     top: 10px;
     left: 40px;
@@ -57,7 +57,7 @@
     padding: 0px;
 }
 
-.content-box{
+.dashboard-content-box{
     /* border: 1px solid red; */
     height: 260px;
     width: 550px;
@@ -66,7 +66,7 @@
     justify-content: center;
     align-items: center;
 }
-.content-unorderedlist {
+.dashboard-content-unorderedlist {
     width: 100%;
     flex-direction: column;
     display: flex;
@@ -78,7 +78,7 @@
     /* border: 1px solid red; */
 }
 
-.content-list-with-rank{
+.dashboard-content-list-with-rank{
     height: 40px;
     width: 100%;
     /* border: 1px solid black; */
@@ -88,11 +88,11 @@
     justify-content: space-between;
 }
 
-.content-unorderedlist p {
+.dashboard-content-unorderedlist p {
     font-size: 12px;
     font-weight: 900;
 }
-.title-artist-box > p{
+.dashboard-songtitle-artist-box > p{
     margin: 0;
     margin-left: 10px;
     white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */
@@ -102,7 +102,7 @@
 
     /* background-color: red; */
 }
-.artist {
+.dashboard-artist {
     color: #A4A4A4;
 }
 
@@ -164,7 +164,7 @@
     color: rgb(151, 151, 151);
 }
 
-.content-list {
+.dashboard-content-list {
     width: 95%;
     flex-shrink: 0;
     height: 100%;
@@ -174,9 +174,16 @@
     border-radius: 10px;
     position: relative;
     background-color: #F8FAFB;
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
 }
 
-.content-list-img {
+.dashboard-content-list:hover{
+    transform: scale(1.05);
+}
+
+.dashboard-content-list-img {
     height: 30px;
     width: 30px;
     margin-left: 20px;
@@ -185,7 +192,7 @@
     object-fit : cover;
 }
 
-.genre-box, .mood-box{
+.dashboard-genre-box, .dashboard-mood-box{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -195,15 +202,15 @@
     border-radius: 5px;
     background-color: whitesmoke;
 }
-.genre, .mood {
+.dashboard-genre, .dashboard-mood {
     margin: 0;
 }
 
-.license-img {
+.dashboard-license-img {
     margin: 0px;
 }
 
-.genre-mood-license-threebox {
+.dashboard-genre-mood-license-threebox {
     /* border: 1px solid red; */
     height: 100%;
     width: 250px;
@@ -215,7 +222,7 @@
 }
 
 /* 신고사유 */
-.report-box {
+.dashboard-report-box {
     height: 75%;
     width: 300px;
     border: 1px solid black;
@@ -228,18 +235,18 @@
     border: none;
     /* background-color: white; */
 }
-.report-box.etc {
+.dashboard-report-box.etc {
     justify-content: center;
     align-items: baseline;
     flex-direction: column;
 }
 
-.report-text {
+.dashboard-report-text {
     margin: 0px;
     margin-left: 10px;
 }
 
-.report-text.sub {
+.dashboard-report-text.sub {
     color: #A4A4A4; /* 나머지 문자열을 회색으로 */
     font-size: 9px;
     white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */

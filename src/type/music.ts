@@ -4,6 +4,7 @@ export interface DashboardMusicType{ //SongExt
         songImageName:string
     },
     songTitle : string,
+    songNo : number,
     memberNickname : string
     genreName : string,
     moodName : string,
