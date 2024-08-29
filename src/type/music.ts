@@ -1,4 +1,4 @@
-export interface Top5MusicType{ //SongExt
+export interface DashboardMusicType{ //SongExt
     songImage : {
         songImagePathName:string,
         songImageName:string
@@ -8,5 +8,6 @@ export interface Top5MusicType{ //SongExt
     genreName : string,
     moodName : string,
     songLicense : string,
-    downloadCountNumber : number
+    downloadCountNumber : number,
+    songCreateDate : string
 }

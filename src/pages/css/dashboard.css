@@ -116,6 +116,7 @@
     height: 100%;
     width: 15%;
     border: 1px solid #D4D4D4;
+    background-color: #F8FAFB;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -143,7 +144,24 @@
     overflow: hidden; /* 넘친 부분을 숨김 */
     text-overflow: ellipsis;
     margin: 0px;
-    color: red;
+    color: rgb(151, 151, 151);
+}
+
+.dashboard-date-div {
+    height: 100%;
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F8FAFB;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    /* background-color: red; */
+}
+
+.dashboard-date {
+    margin: 0px;
+    color: rgb(151, 151, 151);
 }
 
 .content-list {
