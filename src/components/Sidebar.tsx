@@ -1,22 +1,9 @@
-import { MouseEvent, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { SidebarProps } from "../type/siderbar";
 
-export default function Sidebar({ isCollapsed, onToggle }: SidebarProps){
+export default function Sidebar({ isCollapsed, onToggle, selectedMenu, onMenuSelect}: SidebarProps){
 
-    const navi = useNavigate();
-    const location = useLocation(); // 현재 경로를 가져오기 위한 훅
-
-    const currentPath = location.pathname.split('/')[1];
-
-    const [sideMenuState, setSideMenuState] = useState(currentPath === '' ? 'dashboard' : currentPath);
     const [hoveredItem, setHoveredItem] = useState<string | null>(null); // 호버 상태 관리
-
-    const menuSelect = (e:MouseEvent) => {
-        const {value} = e.currentTarget as HTMLButtonElement;
-        setSideMenuState(value);
-        navi("/" + value);
-    }
 
     const handleMouseEnter = (key: string) => {
       setHoveredItem(key); // 호버 상태 업데이트
@@ -38,7 +25,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps){
         <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
           <div className="logobox">
             <p>ADMIN</p>
-            <button className="logo-background-button" onClick={menuSelect} value="dashboard">
+            <button className="logo-background-button" onClick={() => onMenuSelect("dashboard")} value="dashboard">
               <div className="logo-background-img"></div>
             </button>
             <div className="sidebar-toggle-button-div2" onClick={onToggle}>
@@ -53,23 +40,23 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps){
               <li key={item.key} className="sidebar-menu-li">
                 <button
                   className={`sidebar-menu-button ${
-                    sideMenuState === item.key ? "selected" : ""
+                    selectedMenu === item.key ? "selected" : ""
                   }`}
                   value={item.key}
-                  onClick={menuSelect}
+                  onClick={() => onMenuSelect(item.key)}
                   onMouseEnter={() => handleMouseEnter(item.key)} // 마우스 엔터 이벤트 핸들러
                   onMouseLeave={handleMouseLeave} // 마우스 리브 이벤트 핸들러
                 >
 
                   <img className={`menu-icon ${isCollapsed ? 'collapsed' : ''}`} src={
-                    (sideMenuState === item.key || hoveredItem === item.key)
+                    (selectedMenu === item.key || hoveredItem === item.key)
                       ? item.hoverIconPath
                       : item.iconPath
                     } // 호버 상태에 따라 아이콘 변경
                     alt="Icon"
                   />
 
-                  <p className={`menu-name ${sideMenuState === item.key ? "selected" : ""}`}>
+                  <p className={`menu-name ${selectedMenu === item.key ? "selected" : ""}`}>
                       {item.label}
                   </p>
 
