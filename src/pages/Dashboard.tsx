@@ -3,6 +3,37 @@ import './css/dashboard.css';
 import axios from '../utils/CustomAxios';
 import { DashboardMusicType } from '../type/music';
 import { DashboardReportType } from '../type/report';
+import { Bar } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+// 데이터 타입 정의
+interface DownloadStatistic {
+    DOWNLOAD_DATE: string;
+    COUNT: number;
+}
+// 날짜 형식 확인 및 변환 함수
+const parseDate = (dateString: string): Date => {
+    const [day, month, year] = dateString.split('/').map(Number);
+    return new Date(year + 2000, month - 1, day); // Assuming year is in 'YY' format
+}
+
 
 export default function Dashboard() {
 
@@ -10,53 +41,108 @@ export default function Dashboard() {
     const [newMusicItems, setNewMusicItems] = useState<DashboardMusicType[]>([]);
     const [recentReportItems, setRecentReportItems] = useState<DashboardReportType[]>([]);
 
-    // 최근 한달간 인기 있는 음원 Top5
+    const [chartData, setChartData] = useState({
+        labels: [] as string[],
+        datasets: [
+            {
+                label: 'Downloads',
+                data: [] as number[],
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            },
+        ],
+    });
+
+
     useEffect(() => {
-        axios.get("http://localhost:8087/soundcast/song/top5Music")
-            .then((response) => {
-                setTop5MusicItems(response.data);
+        axios.get<DownloadStatistic[]>("http://localhost:8087/soundcast/statistic/download")
+            .then((res) => {
+                const responseData = res.data;
+
+                // 날짜와 카운트 데이터 정렬
+                const sortedData = responseData.sort((a, b) => {
+                    const dateA = parseDate(a.DOWNLOAD_DATE);
+                    const dateB = parseDate(b.DOWNLOAD_DATE);
+                    return dateA.getTime() - dateB.getTime();
+                });
+
+                // 데이터 변환
+                const labels = sortedData.map(item => item.DOWNLOAD_DATE);
+                const data = sortedData.map(item => item.COUNT);
+
+                setChartData({
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Downloads',
+                            data: data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        },
+                    ],
+                });
             })
             .catch((error) => {
-                console.log(error);
-            })
+                console.error("API 요청 오류:", error);
+            });
+    }, []);
 
-        return () => {
-            //컴포넌트가 소멸될때 실행할 코드
-            setTop5MusicItems([]);
-        }
-    }, [])
+
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            }
+        },
+    };
+
+    // 최근 한달간 인기 있는 음원 Top5
+    // useEffect(() => {
+    //     axios.get("http://localhost:8087/soundcast/song/top5Music")
+    //         .then((response) => {
+    //             setTop5MusicItems(response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
+
+    //     return () => {
+    //         //컴포넌트가 소멸될때 실행할 코드
+    //         setTop5MusicItems([]);
+    //     }
+    // }, [])
 
     // 최신 음원
-    useEffect(() => {
-        axios.get("http://localhost:8087/soundcast/song/newMusic")
-            .then((response) => {
-                setNewMusicItems(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+    // useEffect(() => {
+    //     axios.get("http://localhost:8087/soundcast/song/newMusic")
+    //         .then((response) => {
+    //             setNewMusicItems(response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
 
-        return () => {
-            //컴포넌트가 소멸될때 실행할 코드
-            setNewMusicItems([]);
-        }
-    }, [])
+    //     return () => {
+    //         //컴포넌트가 소멸될때 실행할 코드
+    //         setNewMusicItems([]);
+    //     }
+    // }, [])
 
-    // 최근 신고 내역
-    useEffect(() => {
-        axios.get("http://localhost:8087/soundcast/report/recentreport")
-            .then((response) => {
-                setRecentReportItems(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+    // // 최근 신고 내역
+    // useEffect(() => {
+    //     axios.get("http://localhost:8087/soundcast/report/recentreport")
+    //         .then((response) => {
+    //             setRecentReportItems(response.data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
 
-        return () => {
-            //컴포넌트가 소멸될때 실행할 코드
-            setRecentReportItems([]);
-        }
-    }, [])
+    //     return () => {
+    //         //컴포넌트가 소멸될때 실행할 코드
+    //         setRecentReportItems([]);
+    //     }
+    // }, [])
 
     const formatDate = (dateString: string): string => {
         const [datePart] = dateString.split(" ");
@@ -140,7 +226,7 @@ export default function Dashboard() {
                                                 {index + 1}
                                             </p>
 
-                                            <div className='content-list' style={{ width: '80%'}}>
+                                            <div className='content-list' style={{ width: '80%' }}>
                                                 <img className='content-list-img'
                                                     src={`http://localhost:8087/soundcast/resource/${item.songImage.songImagePathName}${item.songImage.songImageName}`} />
                                                 <div className='title-artist-box'>
@@ -197,7 +283,7 @@ export default function Dashboard() {
 
                                             <div className='content-list'>
                                                 <img className='content-list-img'
-                                                 src={`http://localhost:8087/soundcast/resource/${item.song.songImage.songImagePathName}${item.song.songImage.songImageName}`}/>
+                                                    src={`http://localhost:8087/soundcast/resource/${item.song.songImage.songImagePathName}${item.song.songImage.songImageName}`} />
                                                 <div className='title-artist-box'>
                                                     <p className='title'>
                                                         {item.song.songTitle}
@@ -236,7 +322,7 @@ export default function Dashboard() {
                             <p className='content-title'>일별 다운로드 통계</p>
                             <div className='content-box'>
                                 <div className='dashboard-statistics'>
-
+                                    <Bar data={chartData} options={options} />
                                 </div>
                             </div>
                         </div>

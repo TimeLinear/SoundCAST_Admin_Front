@@ -3,7 +3,7 @@ import { getCookie, removeCookie } from "./Cookie";
 
 
 const CustomAxios = axios.create({
-
+   
 })
 
 CustomAxios.interceptors.request.use(function(request){
@@ -23,7 +23,7 @@ CustomAxios.interceptors.response.use(function(response){
             console.log("403 error");
             removeCookie('accessToken');
             removeCookie('member');
-            window.location.href = 'http://localhost:3000/'//로그인페이지 경로 작성
+            // window.location.href = window.location.href.slice(0, 22);//로그인페이지 경로 작성
         }
 {
 
