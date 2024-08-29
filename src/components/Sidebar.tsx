@@ -1,12 +1,15 @@
-import { MouseEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { MouseEvent, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Sidebar(){
 
     const navi = useNavigate();
+    const location = useLocation(); // 현재 경로를 가져오기 위한 훅
 
-    const [sideMenuState, setSideMenuState] = useState('dashboard');
-    const [hoveredItem, setHoveredItem] = useState<string | null>(null); // 호버 상태 관리'
+    const currentPath = location.pathname.split('/')[1];
+
+    const [sideMenuState, setSideMenuState] = useState(currentPath === '' ? 'dashboard' : currentPath);
+    const [hoveredItem, setHoveredItem] = useState<string | null>(null); // 호버 상태 관리
 
     const menuSelect = (e:MouseEvent) => {
         const {value} = e.currentTarget as HTMLButtonElement;
@@ -27,21 +30,21 @@ export default function Sidebar(){
         { key: "member", label: "회원", iconPath: "/images/icon_member_gray.png", hoverIconPath: "/images/icon_member_purple.png"},
         { key: "music", label: "음원", iconPath: "/images/icon_music_gray.png", hoverIconPath: "/images/icon_music_purple.png"},
         { key: "report", label: "신고", iconPath: "/images/icon_report_gray.png", hoverIconPath: "/images/icon_report_purple.png"},
-        { key: "statistics", label: "통계", iconPath: "/images/icon_statistics_gray.png", hoverIconPath: "/images/icon_statistics_purple.png"},
+        { key: "statistics", label: "통계", iconPath: "/images/icon_statistics_gray.png", hoverIconPath: "/images/icon_statistics_purple.png"}
       ];
     
       return (
         <div className="sidebar">
           <div className="logobox">
             <p>ADMIN</p>
-            <img src="/images/soundcasttextlogo.png" alt="" />
+            <div className="logo-backgound-img"/>
           </div>
     
           <ul className="menu">
             {menuItems.map((item) => (
               <li key={item.key}>
                 <button
-                  className={`menu-button ${item.key}-menu-button ${
+                  className={`${item.key}-menu-button ${
                     sideMenuState === item.key ? "selected" : ""
                   }`}
                   value={item.key}

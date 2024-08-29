@@ -1,21 +1,201 @@
-/* src/components/Dashboard.css */
-.dashboard {
-    padding: 20px;
-    overflow-y: auto;
+.dashboard-page {
     width: 100%;
-    box-sizing: border-box;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    background-color: #F8FAFB;
+    min-width: 1350px;
+    overflow-y: auto;
 }
 
-.header {
-    margin-bottom: 20px;
+.dashboard-title {
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 34px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 54px;
 }
 
-.header h2 {
+.four-box {
+    margin-top: 28px;
+    height: 750px;
+    width: 1260px;
+}
+
+.first-second-box, .third-fourth-box {
+    /* border: 1px solid black; */
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.third-fourth-box {
+    align-items: end;
+}
+
+.top5-music, .new-music, .recent-report, .daily-download-statistics{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #ECECEC; */
+    height: 95%;
+    width: 48.5%;
+    /* width: 612px; */
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 100px -40px rgba(0, 0, 0, 0.25);
+    position: relative;
+}
+
+.content-title {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 20px;
+    padding: 0px;
+}
+
+.content-box{
+    /* border: 1px solid red; */
+    height: 260px;
+    width: 550px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content-unorderedlist {
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    padding: 0px;
+    justify-content: space-evenly;
+    height: 100%;
+    /* border: 1px solid red; */
+}
+
+.content-list-with-rank{
+    height: 40px;
+    width: 100%;
+    /* border: 1px solid black; */
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.content-unorderedlist p {
+    font-size: 12px;
+    font-weight: 900;
+}
+.title-artist-box > p{
+    margin: 0;
+    margin-left: 10px;
+    white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */
+    overflow: hidden; /* 넘친 부분을 숨김 */
+    text-overflow: ellipsis;
+    max-width: 180px; /* 최대 너비 설정 */
+}
+.artist {
+    color: #A4A4A4;
+}
+
+.rank {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 15px;
+}
+
+.content-list {
+    width: 95%;
+    flex-shrink: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    position: relative;
+    background-color: #F8FAFB;
+}
+
+.content-list-img {
+    height: 30px;
+    width: 30px;
+    margin-left: 20px;
+    border-radius: 5px;
+    border: 2px solid #D4D4D4;
+    object-fit : cover;
+}
+
+.genre-box, .mood-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    width: 100px;
+    border: 1px solid #D4D4D4;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+.genre, .mood {
     margin: 0;
 }
 
-.content {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.license-img {
+    margin: 0px;
+}
+
+.genre-mood-license-threebox {
+    /* border: 1px solid red; */
+    height: 100%;
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    right: 20px;
+    align-items: center;
+}
+
+/* 신고사유 */
+.report-box {
+    height: 75%;
+    width: 300px;
+    border: 1px solid black;
+    position: absolute;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    /* border: 1px solid #D4D4D4; */
+    border-radius: 5px;
+    border: none;
+    /* background-color: white; */
+}
+.report-box.etc {
+    justify-content: center;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+.report-text {
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.report-text.sub {
+    color: #A4A4A4; /* 나머지 문자열을 회색으로 */
+    font-size: 9px;
+    white-space: nowrap; /* 텍스트가 한 줄로 나오도록 설정 */
+    overflow: hidden; /* 넘친 부분을 숨김 */
+    text-overflow: ellipsis;
+    max-width: 280px; /* 최대 너비 설정 */
+}
+
+.dashboard-statistics {
+    height: 90%;
+    width: 90%;
+    border: 1px dashed black; /* 통계 그래프 불러올 시 지울 속성*/
 }

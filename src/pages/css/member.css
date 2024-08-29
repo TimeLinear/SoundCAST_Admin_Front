@@ -1,4 +1,283 @@
-.member {
+.member-page {
     width: 100%;
-    background-color: orange;
+    /* background-color: orange; */
+    display: flex;
+    justify-content: center;
+    background-color: #F8FAFB;
+    min-width: 1350px;
+    overflow-y: auto;
+}
+
+.member-title {
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 34px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 54px;
+}
+
+.member-content-box {
+    margin-top: 28px;
+    height: 700px;
+    width: 1260px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 100px -40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.member-content {
+    height: 80%;
+    width: 80%;
+    /* border: 1px solid black; */ /* 흰 박스에 총 컨텐츠가 들어갈 영역 표시 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position:relative;
+}
+
+.member-bar-box {
+    /* border: 1px solid black; */
+    height: 9%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.member-list-box {
+    /* border: 1px solid black; */ /*회원 목록 박스 구간 표시*/
+    height: 385px;
+    width: 100%;
+}
+.member-paging-and-button {
+    /* border: 1px solid red; */
+    height: 15%;
+    width: 100%;
+}
+
+.member-custom-selectbox { /* 셀렉트 박스 */
+    border: 1px solid #D4D4D4;
+    height: 100%;
+    width: 150px;
+    border-radius: 7px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.member-custom-selectbox:hover {
+    border : 2px solid #D9D4EC;
+}
+.member-custom-selectbox.selected3{
+    border : 2px solid #770ABF;
+}
+
+.member-custom-selectbox-dropdown {
+    position:absolute;
+    border: 1px solid #D4D4D4;
+    height: 150px;
+    width: 150px;
+    top: 52px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.member-custom-selectbox-dropdown.show {
+    opacity: 1;
+}
+
+.member-no-button, .member-nickname-button, .member-email-button {
+    border-radius: 7px;
+    border: none;
+    height: 30%;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+}
+.member-no-button:hover, .member-nickname-button:hover, .member-email-button:hover {
+    background-color: whitesmoke;
+}
+.member-no-button.selected2:hover, .member-nickname-button.selected2:hover, .member-email-button.selected2:hover {
+    background-color: whitesmoke;
+}
+
+.member-custom-selectbox-dropdown .selected2 {
+    background-color: lightgray;
+}
+
+.member-no, .member-nickname, .member-email{
+    margin: 0;
+    position: absolute ;
+    left: 15px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.member-selectbox-name {
+    margin-left: 14px;
+    font-size: 14px;
+    font-weight: 900;
+}
+.member-selectbox-icon {
+    position: absolute;
+    right: 20px;
+    font-size: 8px;
+    font-weight: 900;
+    transform: scaleX(1.6); /* 가로로 1.2배 확장 */
+}
+
+.member-input {
+    height: 100%;
+    width: 75%;
+    border: 1px solid #D4D4D4;
+    border-radius: 7px;
+    background-color: #F8FAFB;
+    box-sizing: border-box;
+}
+
+.member-search-button { /* 검색버튼 */
+    height: 100%;
+    width: 8%;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 7px;
+    background-color: #770abfc5;
+}
+.member-search-button:hover {
+    
+    border: 1px solid #8936c0;
+    background-color: #770ABF;
+    cursor: pointer;
+    /* 손가락모양 구현 */
+}
+
+.member-search-button-name {
+    color: white;
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 13px;
+    margin: 0;
+    margin-top: 4px;
+}
+
+/* 검색창 */
+.member-input {
+    background-color: #F8FAFB;
+    padding: 0px 14px;
+} 
+.member-input:hover {
+    border: 2px solid #D9D4EC;
+}
+.member-input:focus {
+    background-color: white;
+    border: 2px solid #770ABF;
+    outline: none;
+}
+.member-input::placeholder {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 회원 목록 */
+.member-list-form {
+    background-color: #F8FAFB;
+}
+.member-list-form > div{
+    color: #868E96;
+    font-weight: 900;
+}
+
+input[type="checkbox"] {
+    accent-color: #C9120A; /* 체크된 상태의 색상 */
+}
+
+.member-list-common-css {
+    /* border: 1px solid blue; */
+    height: 35px;
+    width: 100%;
+    display: flex;
+}
+.member-list-common-css > div{
+    border-bottom: 1px solid #D4D4D4;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-list-form-1 {
+    width: 10%
+}
+.member-list-form-2 {
+    width: 10%
+}
+.member-list-form-3 {
+    width: 15%
+}
+.member-list-form-3 > img {
+    border: 2px solid #D4D4D4;
+    border-radius: 5px;
+}
+
+.member-list-form-4 {
+    width: 30%
+}
+.member-list-form-5 {
+    width: 35%
+}
+
+.member-unordered-list {
+    margin: 0px;
+    padding: 0px;
+}
+.member-unordered-list img{
+    height: 25px;
+    width: 25px;
+    object-fit : cover;
+}
+
+/* 회원 삭제 버튼 */
+
+.member-paging-and-button {
+    position: relative;
+}
+
+.member-delete-button {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    height: 60px;
+    width: 100px;
+    background-color: #C9120A;
+    padding: 0;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.member-delete-button:hover {
+    border: 1px solid #C9120A;
+    background-color: #a31009;
+}
+
+.member-delete-p {
+    font-family: 'LeferiPoint-BlackA';
+    font-size: 13px;
+    margin: 0;
+    margin-top: 4px;
+    color: white;
 }

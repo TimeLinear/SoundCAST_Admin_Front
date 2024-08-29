@@ -7,15 +7,16 @@ interface ReportModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   selectedReport: {
-    music: string;
-    reason: string;
-    artist: string;
-    member: string;
-    date: string;
-    status: string;
-    text: string;
-  } | null;
-  // onUpdateStatus: () => void; // 처리 완료 상태 업데이트 함수 추가
+    reportNo: number, // 신고 번호 => Report
+    songTitle: string, // 신고된 음원 제목 => SongExt => Song
+    member : {
+        memberNickname: string
+    },//  신고 받은 음원의 닉네임=> MemberExt => Member
+    reportMemberNickname : string, // 신고한 회원의 닉네임 => Report
+    reportText: string, // 신고 내용 => Report
+    reportDate: string, // 신고 날짜 => Report
+    status: string // 신고 처리 여부 => Report
+  };
 }
 
 // ReportModal 컴포넌트 정의
@@ -33,35 +34,35 @@ const ReportModal: React.FC<ReportModalProps> = ({ isOpen, onRequestClose, selec
       {selectedReport ? (
         <div>
           <p><strong>신고 사유</strong></p>
-          <div className='reason-div'>{selectedReport.reason}</div>
+          <div className='reason-div'>{selectedReport.reportText}</div>
           <div className="inline-container">
               <div>
                 <p><strong>신고 음원 제목</strong></p>
-                <div className="common-div">{selectedReport.music}</div>
+                <div className="common-div">{selectedReport.songTitle}</div>
               </div>
               <div>
                 <p><strong>신고 아티스트</strong></p>
-                <div className="common-div">{selectedReport.artist}</div>
+                <div className="common-div">{selectedReport.member.memberNickname}</div>
               </div>
             </div>
             <div className="inline-container">
               <div>
                 <p><strong>신고한 회원</strong></p>
-                <div className="common-div">{selectedReport.member}</div>
+                <div className="common-div">{selectedReport.reportMemberNickname}</div>
               </div>
               <div>
                 <p><strong>신고 일자</strong></p>
-                <div className="common-div">{selectedReport.date}</div>
+                <div className="common-div">{selectedReport.reportDate}</div>
               </div>
             </div>
           <p><strong>처리 현황</strong></p>
           <div className='common-div'>{selectedReport.status}</div>
           <div>
             <p><strong>신고 내용</strong></p>
-            <div className="text-div">{selectedReport.text}</div>
+            <div className="text-div">{selectedReport.reportText}</div>
           </div>
           <div className='inline-container2'>
-          <button className='status-button' /*onClick={onUpdateStatus}*/>처리 완료</button><button onClick={onRequestClose}>닫기</button>
+          <button className='status-button'>처리 완료</button><button onClick={onRequestClose}>닫기</button>
           </div>
         </div>
         

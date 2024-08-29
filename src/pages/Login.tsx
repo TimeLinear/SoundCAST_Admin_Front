@@ -41,7 +41,7 @@ const Login: React.FC = () => {
                     </div>
                     <button className='button' type="submit">Log In</button>
                     <div className="soundcast-logo">
-                        <img className="soundcast-logo" alt="soundcast-logo" src="/images/image.png"/>
+                        <img className="soundcast-logo" alt="soundcast-logo" src="/images/soundcast-logo-onlyshape.png"/>
                         <img className="soundcast-font2" alt="soundcast-font" src="/images/soundcast-font.png"/>
                     </div>
                 </form>
