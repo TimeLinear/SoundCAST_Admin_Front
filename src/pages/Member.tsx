@@ -8,23 +8,28 @@ export default function Member(){
 
     const [memberListItems, setMemberListItems] = useState<MemberType[]>([]);
 
-    // useEffect(()=>{
-    //     axios.get("http://localhost:8087/soundcast/member/selectMembers")
-    //     .then((response) => {
-    //         setMemberListItems(response.data);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     })
-    //     return() => {
-    //         //컴포넌트가 소멸될때 실행할 코드
-    //         setMemberListItems([]);
-    //     }
-    // },[])
+    useEffect(()=>{
+        axios.get("http://localhost:8087/soundcastadmin/member/selectMembers")
+        .then((response) => {
+            setMemberListItems(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        return() => {
+            //컴포넌트가 소멸될때 실행할 코드
+            setMemberListItems([]);
+        }
+    },[])
+
+    // const [searchKeyword, onChangeKeyword] = useInput<SearchKeyword>({
+    //     type: '닉네임',
+    //     searchTerm: ''
+    // });
 
     const searchMenus = () => {
         const searchTerm = searchKeyword || "defaultSearchTerm"; // 빈 문자열 대신 기본값 설정
-        const url = `http://localhost:8087/soundcast/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
+        const url = `http://localhost:8087/soundcastadmin/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
 
         axios.
             get(url).

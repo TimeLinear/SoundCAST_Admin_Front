@@ -26,13 +26,33 @@
   align-items: center;
   background-color: #F8FAFB;
 }
-
+/* 
 table {
   border-radius: 8px;
-}
+} */
 
 .thead {
   color: #000000;
+}
+
+.detail-th{
+  text-align: center;
+}
+
+.detail-button{
+  width: 120px;
+  height: 40px;
+  margin-left: 40px;
+  padding: 5px 10px;
+  background-color: #770ABF;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.status-bar{
+  margin-left: 20px;
 }
 
 
