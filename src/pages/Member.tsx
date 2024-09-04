@@ -1,8 +1,61 @@
-import { ChangeEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, MouseEvent as ReactMouseEvent, useEffect, useRef, useState } from 'react';
 import './css/member.css';
 import Pagination from '../components/Pagination';
+import axios from '../utils/CustomAxios';
+import { MemberType } from '../type/member';
 
 export default function Member(){
+
+    const [memberListItems, setMemberListItems] = useState<MemberType[]>([]);
+
+    // useEffect(()=>{
+    //     axios.get("http://localhost:8087/soundcast/member/selectMembers")
+    //     .then((response) => {
+    //         setMemberListItems(response.data);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+    //     return() => {
+    //         //컴포넌트가 소멸될때 실행할 코드
+    //         setMemberListItems([]);
+    //     }
+    // },[])
+
+    const searchMenus = () => {
+        const searchTerm = searchKeyword || "defaultSearchTerm"; // 빈 문자열 대신 기본값 설정
+        const url = `http://localhost:8087/soundcast/member/searchMembers/type/${selectBoxState}/searchTerm/${searchTerm}`;
+
+        axios.
+            get(url).
+            then( response => {
+                console.log(response.data);
+                setMemberListItems(response.data);
+            });
+    }
+
+    const deleteMenus = () => {
+        axios.put("http://localhost:8087/soundcast/member/deleteMembers", deleteList).
+        then(response => {
+            console.log(response.data);
+            
+            if(response.data > 0){
+                alert("삭제 성공");
+                // 화면에 바로 반영하기 위해 필터링된 목록으로 상태 업데이트
+                setMemberListItems(prevItems =>
+                    prevItems.filter(item => !deleteList.includes(item.memberNo))
+                );
+            } else{
+                alert("삭제 실패");
+            }
+
+            // 삭제 후 삭제 리스트 초기화
+            setDeleteList([]);
+        })
+        .catch(error => {
+            console.error("Failed to delete members", error);
+        });
+    }
 
     const [dropShow ,setDropShow] = useState(false);
     const [animateDropdown, setAnimateDropdown] = useState(false);
@@ -10,15 +63,28 @@ export default function Member(){
     const buttonRef = useRef<HTMLDivElement>(null); // 드롭다운 버튼에 대한 참조 추가
     
     const [searchKeyword, setSearchKeyword] = useState("");
+    const [deleteList, setDeleteList] = useState<number[]>([]);
+
+    const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const memberNo = Number(e.target.value);
+        setDeleteList(prevSelected =>
+            e.target.checked
+                ? [...prevSelected, memberNo]
+                : prevSelected.filter(no => no !== memberNo)
+        );
+    };
 
     const handleSearchKeyword = (e:ChangeEvent<HTMLInputElement>) => {
         setSearchKeyword(e.target.value);
         console.log(searchKeyword);
     }
 
-    // const dropChange = () => {
-    //     setDropShow(!dropShow);
-    // }
+    // Enter 키를 눌렀을 때 검색을 실행하는 함수
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            searchMenus();
+        }
+    }
 
     const dropChange = (e:ReactMouseEvent) => {
         e.stopPropagation();  // 이벤트 전파를 막음
@@ -64,30 +130,13 @@ export default function Member(){
         { key : "nickname", name : "닉네임"},
         { key : "email", name : "이메일"}
     ]
-
-    const memberListItems:any = [
-        {no: "1", profileImg: "/images/mimikyu.png", artist: "Sopp", email: "soppworld@naver.com"},
-        {no: "2", profileImg: "/images/mimikyu.png", artist: "react" , email: "fffjjj@naver.com"},
-        {no: "3", profileImg: "/images/mimikyu.png", artist: "Du" , email: "ido@gmail.com"},
-        {no: "4", profileImg: "/images/mimikyu.png", artist: "Soo" , email: "udong@gmail.com"},
-        {no: "5", profileImg: "/images/mimikyu.png", artist: "jsp" , email: "jsplove@gmail.com"},
-        {no: "6", profileImg: "/images/mimikyu.png", artist: "foreach" , email: "fore@gmail.com"},
-        {no: "7", profileImg: "/images/mimikyu.png", artist: "Chan" , email: "gyung@gmail.com"},
-        {no: "8", profileImg: "/images/mimikyu.png", artist: "mkm" , email: "mkm@gmail.com"},
-        {no: "9", profileImg: "/images/mimikyu.png", artist: "Jin" , email: "jinzza@gmail.com"},
-        {no: "10", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"},
-        {no: "11", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"}
-    ]
-
-    memberListItems.push(...memberListItems);
-    memberListItems.push(...memberListItems);
-    memberListItems.push(...memberListItems);
-    memberListItems.push(...memberListItems);
-
+    
     /* 페이지네이션 시작 */
-
+    // 한 페이지당 항목 수
+    const itemsPerPage = 10;
+    
     const [currentPage, setCurrentPage] = useState<number>(1); /* 현재 페이지, Pagination.tsx로 넘김 */
-    const totalPages: number = Math.ceil(memberListItems.length / 10); /* 페이지 (버튼) 수, Pagination.tsx로 넘김 */
+    const totalPages: number = Math.ceil(memberListItems.length / itemsPerPage ); /* 페이지 (버튼) 수, Pagination.tsx로 넘김 */
 
     const handlePageChange = (pageNumber: number) => { /* pageNumber는 Pagination.tsx에서 기술 , Pagination.tsx로 넘김 */
     setCurrentPage(pageNumber); /* 현재 페이지의 state를 Pagination.tsx에서 받아온 pageNumber로 변경,
@@ -97,9 +146,6 @@ export default function Member(){
     // 페이지 변경 시 데이터 가져오기 또는 화면 갱신 로직 추가
     };
 
-    // 한 페이지당 항목 수
-    const itemsPerPage = 10;
-
     // 현재 페이지의 항목을 계산
     const indexOfLastItem = currentPage * itemsPerPage; // 현재 페이지에서 가장 마지막 리스트 아이템의 인덱스 + 1
     const indexOfFirstItem = indexOfLastItem - itemsPerPage; // 현제 페이지에서 가장 첫번째 리스트 아이템의 인덱스
@@ -107,95 +153,98 @@ export default function Member(){
     // 현재 페이지에서 표시해야할 리스트 아이템들 [{no: "11", profileImg: "/images/mimikyu.png", artist: "Gun" , email: "parkyo@gmail.com"}]
 
     /* 페이지네이션 끝 */
-    
+
     return (
         <div className='member-page'>
-            <p className='member-title'>회원</p>
-            <div className='member-content-box'>
-                <div className='member-content'>
+            <div className='member-title-and-contentbox'>
+                <p className='member-title'>회원</p>
+                <div className='member-content-box'>
+                    <div className='member-content'>
 
-                    { /* 누를 시 나오는 커스텀 드롭다운 */
-                        (dropShow &&
-                        
-                            <div className={`member-custom-selectbox-dropdown ${animateDropdown ? 'show' : ''}`}
-                            ref={dropdownRef}>
+                        { /* 누를 시 나오는 커스텀 드롭다운 */
+                            (dropShow &&
+                            
+                                <div className={`member-custom-selectbox-dropdown ${animateDropdown ? 'show' : ''}`}
+                                ref={dropdownRef}>
 
-                            {selectBoxItems.map((item) => (
+                                    {selectBoxItems.map((item) => (
 
-                                <button
-                                 className={`member-${item.key}-button ${
-                                   selectBoxState === item.name ? "selected2" : ""
-                                 }`}
-                                 value={item.name}
-                                 onClick={selectBoxSelect}
-                                 >                           
-                                    <p className={`member-${item.key}`}>{item.name}</p>
-                                </button>
+                                        <button
+                                        className={`member-${item.key}-button ${
+                                        selectBoxState === item.name ? "selected2" : ""
+                                        }`}
+                                        name='type' value={item.name}
+                                        onClick={selectBoxSelect}
+                                        >                           
+                                            <p className={`member-${item.key}`}>{item.name}</p>
+                                        </button>
 
-                            ))}
-            
-                        </div>)
-                        
-                    }
+                                    ))}
+                                </div>
+                            )
+                        }
 
-                    <div className='member-bar-box'>
+                        <div className='member-bar-box'>
 
-                        <div
-                            className={`member-custom-selectbox ${dropShow ? 'selected3' : ''}`}
-                            onClick={dropChange}
-                            ref={buttonRef} // 버튼 참조 추가
-                        >
-                            <p className='member-selectbox-name'>{selectBoxState}</p>
-                            <p className='member-selectbox-icon'>{dropShow ? '▲' : '▼'}</p>
+                            <div
+                                className={`member-custom-selectbox ${dropShow ? 'selected3' : ''}`}
+                                onClick={dropChange}
+                                ref={buttonRef} // 버튼 참조 추가
+                            >
+                                <p className='member-selectbox-name'>{selectBoxState}</p>
+                                <p className='member-selectbox-icon'>{dropShow ? '▲' : '▼'}</p>
+                            </div>
+
+                            <input className='member-input' placeholder='검색어 입력'
+                                name='searchTerm'
+                                onChange={handleSearchKeyword}
+                                onKeyDown={handleKeyDown} // Enter 키 감지 핸들러 추가
+                            />
+
+                            <button className='member-search-button'
+                             onClick={() => searchMenus()}>
+                                <p className='member-search-button-name'>검색</p>
+                            </button>
                         </div>
 
-                        <input className='member-input' placeholder='검색어 입력'
-                            onChange={handleSearchKeyword}></input>
+                        <div className='member-list-box'>
+                            <div className='member-list-form member-list-common-css'>
+                                <div className='member-list-form-1'>선택</div>
+                                <div className='member-list-form-2'>No</div>
+                                <div className='member-list-form-3'>회원 사진</div>
+                                <div className='member-list-form-4'>닉네임</div>
+                                <div className='member-list-form-5'>이메일</div>
+                            </div>
+                            <ul className='member-unordered-list'>
+                                {currentItems.map((item) => (
+                                    <li key={item.memberNo} /* 고유한 key prop 추가 */
+                                        className={`member-list-${item.memberNo} member-list-common-css`}>
+                                        <div className='member-list-form-1'>
+                                            <input type="checkbox" value={item.memberNo}
+                                              onChange={handleCheckboxChange}/>
+                                        </div>
+                                        <div className='member-list-form-2'>{item.memberNo}</div>
+                                        <div className='member-list-form-3'>
+                                            <img src={`http://localhost:8087/soundcast/resource/${item.profileImage.profileImagePath}`} /></div>
+                                        <div className='member-list-form-4'>{item.memberNickname}</div>
+                                        <div className='member-list-form-5'><p>{item.memberEmail}</p></div>
+                                    </li>
+                                ))}
 
-                        <button className='member-search-button'>
-                            <p className='member-search-button-name'>검색</p>
-                        </button>
-                    </div>
-
-                    <div className='member-list-box'>
-                        <div className='member-list-form member-list-common-css'>
-                            <div className='member-list-form-1'>선택</div>
-                            <div className='member-list-form-2'>No</div>
-                            <div className='member-list-form-3'>회원 사진</div>
-                            <div className='member-list-form-4'>닉네임</div>
-                            <div className='member-list-form-5'>이메일</div>
+                            </ul>
                         </div>
-                        <ul className='member-unordered-list'>
-                            {currentItems.map((item:{
-    no: string;
-    profileImg: string;
-    artist: string;
-    email: string;
-}) => (
-                                <li className={`member-list-${item.no} member-list-common-css`}>
-                                    <div className='member-list-form-1'>
-                                        <input type="checkbox" />
-                                    </div>
-                                    <div className='member-list-form-2'>{item.no}</div>
-                                    <div className='member-list-form-3'>
-                                        <img src={item.profileImg} alt="" /></div>
-                                    <div className='member-list-form-4'>{item.artist}</div>
-                                    <div className='member-list-form-5'>{item.email}</div>
-                                </li>
-                            ))}
 
-                        </ul>
-                    </div>
-
-                    <div className='member-paging-and-button'>
-                        <Pagination
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={handlePageChange}
-                        />
-                        <button className='member-delete-button'>
-                            <p className='member-delete-p'>회원삭제</p>
-                        </button>
+                        <div className='member-paging-and-button'>
+                            <Pagination
+                                currentPage={currentPage}
+                                totalPages={totalPages}
+                                onPageChange={handlePageChange}
+                            />
+                            <button className='member-delete-button'
+                             onClick={deleteMenus} /*style={{height:'60px', width:'100px'}}*/>
+                                <p className='member-delete-p'>회원삭제</p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
