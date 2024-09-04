@@ -3,7 +3,7 @@
     background-color: white;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 /* 페이지에 공통으로 들어 갈 사이드바 */

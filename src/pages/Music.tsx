@@ -205,8 +205,8 @@ const MusicPage: React.FC = () => {
     return (
         <div className='music-page'>
             <div className='music-content'>
+                <p className='music-title'>음원</p>
                 <div className="music-management">
-                    <h1>음원</h1>
                     <div className="music-upload">
                         <button className='upload-modal' onClick={handleShowModal}>
                             Music Upload

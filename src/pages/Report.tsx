@@ -83,64 +83,73 @@ const ReportPage: React.FC = () => {
                 <div className="report-management">
                     <h1>신고</h1>
                     <div className='report-list'>
-                        <h2>신고 현황 목록</h2>
-                        <div className='report-management'>
-                            <div>
-                                <select
-                                    className="select-management"
-                                    value={filterStatus}
-                                    onChange={(e) => setFilterStatus(e.target.value)}
-                                >
-                                    <option value="전체">전체</option>
-                                    <option value="미처리">미처리</option>
-                                </select>
+                        <div className='report-list-content'>
+                            <div className='report-management-box'>
+                                <div className='title-box'>
+                                    <h2>신고 현황 목록</h2>
+                                    <div>
+                                        <select
+                                            className="select-management"
+                                            value={filterStatus}
+                                            onChange={(e) => setFilterStatus(e.target.value)}
+                                        >
+                                            <option value="전체">전체</option>
+                                            <option value="미처리">미처리</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <table>
-                                <thead className="thead">
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>신고 음원</th>
-                                        <th>신고 사유</th>
-                                        <th>신고 회원</th>
-                                        <th>신고 일자</th>
-                                        <th className='detail-th'>처리현황</th>
-                                        <th className='detail-th'>상세 보기</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {currentItems.map((report, index) => (
-                                        <tr key={index}>
-                                            <td>{report.reportNo}</td>
-                                            <td>{report.songTitle}</td>
-                                            <td>{report.reportText}</td>
-                                            <td>{report.reportMemberNickname}</td>
-                                            <td>{report.reportDate}</td>
-                                            <td>
-                                                <select
-                                                    className='status-bar'
-                                                    value={report.status === 'Y' ? '처리 완료' : '미처리'}
-                                                >
-                                                    <option value="미처리">미처리</option>
-                                                    <option value="처리 완료">처리 완료</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button className='detail-button' onClick={() => handleShowModal(report)}>
-                                                    조회하기
-                                                </button>
-                                            </td>
+                        <div className='table-box'>
+                            <div className='table-content'>    
+                                <table>
+                                    <thead className="thead">
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>신고 음원</th>
+                                            <th>신고 사유</th>
+                                            <th>신고 회원</th>
+                                            <th>신고 일자</th>
+                                            <th className='detail-th'>처리현황</th>
+                                            <th className='detail-th'>상세 보기</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                                <Pagination
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    onPageChange={handlePageChange}
-                                />
+                                    </thead>
+                                    <tbody>
+                                        {currentItems.map((report, index) => (
+                                            <tr key={index}>
+                                                <td>{report.reportNo}</td>
+                                                <td>{report.songTitle}</td>
+                                                <td>{report.reportText}</td>
+                                                <td>{report.reportMemberNickname}</td>
+                                                <td>{report.reportDate}</td>
+                                                <td>
+                                                    <select
+                                                        className='status-bar'
+                                                        value={report.status === 'Y' ? '처리 완료' : '미처리'}
+                                                    >
+                                                        <option value="미처리">미처리</option>
+                                                        <option value="처리 완료">처리 완료</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button className='detail-button' onClick={() => handleShowModal(report)}>
+                                                        조회하기
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
+                    </div>
+                        
                     </div>
                 </div>
             </div>
